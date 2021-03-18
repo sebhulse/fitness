@@ -14,25 +14,25 @@ The data is split into `warmup`, `workout` and `cooldown`  exercises and compris
 
 ```json
 {
-			"id": 0,
-			"name": "Squats",
-			"description": "Place your feet shoulder width apart. With your back straight, squat down and when your quads are parallel with the floor, drive up through your heels to the starting point.",
-			"type": [
-				"cardio",
-				"strength"
-			],
-			"level": [
-				"beginner",
-				"intermediate",
-				"advanced"
-			],
-			"area": [
-				"core",
-				"upper",
-				"lower",
-				"full"
-			]
-		}
+	"id": 0,
+	"name": "Squats",
+	"description": "Place your feet shoulder width apart. With your back straight, squat down and when your quads are parallel with the floor, drive up through your heels to the starting point.",
+	"type": [
+		"cardio",
+		"strength"
+	],
+	"level": [
+		"beginner",
+		"intermediate",
+		"advanced"
+	],
+	"area": [
+		"core",
+		"upper",
+		"lower",
+		"full"
+	]
+}
 ```
 
 This example shows the default values for the `type`, `level` and `area` keys of the exercise. In the actual dataset, these keys for the Squats exercise are deleted as appropriate. The description is provided as a reference for future descriptions in the dataset.
