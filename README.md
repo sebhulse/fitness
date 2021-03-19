@@ -1,4 +1,4 @@
-# Bodyweight Exercise Database
+# Bodyweight Exercise Dataset
 
 This is an **open-source** JSON dataset for bodyweight exercises and is hosted at [sebhulse.com/fitness/exercises.json](https://sebhulse.com/fitness/exercises.json). Please feel free to use it in your own projects under the CC BY 4.0 license.
 
