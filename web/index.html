@@ -14,7 +14,9 @@
 
     <script src="js/bootstrap.bundle.min.js"></script>
 
-    <script src="js/test.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/index.js"></script>
+
     <script type="text/javascript">
       handleRequest();
     </script>
@@ -36,7 +38,7 @@
     </style>
   </head>
   <body>
-    <main class="container">
+    <main>
       <div class="container">
         <header
           class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
@@ -79,103 +81,151 @@
           </div>
         </header>
       </div>
-      <h2 class="text-center">Create Your Workout!</h2>
-      <div>
+      <div class="container-sm">
+      <h2 class="text-center">Create Your Workout</h2>
         <form>
           <div class="form-group text-center">
-            <label for="customRange3" class="form-label text-center"
-              ><h4>Duration</h4></label
-            >
+              <h4>Duration</h4>
             <input
               type="range"
-              class="form-range"
+              class="w-50 form-range"
               min="0"
               max="40"
               step="1"
-              id="customRange3"
+              id="durationrange"
+              onchange="changeLiveDuration(this.value)"
             />
-            <p></p>
+          </form>
+
+            <p><span class="badge rounded-pill bg-primary" id="durationValue">20</span> mins</p>
             <div class="container text-center">
               <h4>Type</h4>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic radio toggle button group"
               >
-                Cardio
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Strength
-              </button>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btntype"
+                  id="btntype1"
+                  autocomplete="off"
+                  checked
+                />
+                <label class="btn btn-outline-primary" for="btntype1"
+                  >Strength</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btntype"
+                  id="btntype2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btntype2"
+                  >Cardio</label
+                >
+              </div>
               <p></p>
               <h4>Target Area</h4>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic radio toggle button group"
               >
-                Lower Body
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnarea"
+                id="btnarea4"
                 autocomplete="off"
+                checked
+              />
+              <label class="btn btn-outline-primary" for="btnarea4"
+                >Full Body</label
               >
-                Upper Body
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Core
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Full Body
-              </button>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnarea"
+                  id="btnarea1"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btnarea1"
+                  >Lower Body</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnarea"
+                  id="btnarea2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btnarea2"
+                  >Upper Body</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnarea"
+                  id="btnarea3"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btnarea3"
+                  >Core</label
+                >
+              </div>
               <p></p>
               <h4>Intensity</h4>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
+              <div
+                class="btn-group"
+                role="group"
+                aria-label="Basic radio toggle button group"
               >
-                Beginner
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Intermediate
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="button"
-                autocomplete="off"
-              >
-                Advanced
-              </button>
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnintensity"
+                  id="btnintensity1"
+                  autocomplete="off"
+                  checked
+                />
+                <label class="btn btn-outline-primary" for="btnintensity1"
+                  >Beginner</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnintensity"
+                  id="btnintensity2"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btnintensity2"
+                  >Intermediate</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="btnintensity"
+                  id="btnintensity3"
+                  autocomplete="off"
+                />
+                <label class="btn btn-outline-primary" for="btnintensity3"
+                  >Advanced</label
+                >
             </div>
+
           </div>
-        </form>
+
+        <!-- <h1></h1> -->
+        <button type="button" class="btn m-5 btn-primary btn-lg">Generate Workout</button>
+
       </div>
     </main>
   </body>
