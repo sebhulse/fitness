@@ -270,26 +270,27 @@ function generateWorkout(
   return body;
 }
 
-async function handleRequest() {
+async function handleRequest(durationIn, typeIn, areaIn, levelIn) {
   const init = {
     headers: {
       "content-type": "application/json;charset=UTF-8",
     },
   };
 
-  // const { searchParams } = new URL(request.url)
-  let type = "cardio";
-  let level = "intermediate";
-  let area = "upper";
-  let duration = 2400;
+  let duration = durationIn * 60;
+  console.log("In function");
   console.log(duration);
-  const url = `https://api.sebhulse.com/filter/?type=${type}&level=${level}&area=${area}`;
+  console.log(typeIn);
+  console.log(areaIn);
+  console.log(levelIn);
 
-  const response = await fetch(url, init, "jsonp");
+  const url = `https://api.sebhulse.com/filter/?type=${typeIn}&level=${levelIn}&area=${areaIn}`;
+
+  const response = await fetch(url, init);
   const results = await gatherResponse(response);
-  // console.log(results)
+  console.log(results);
 
-  let rest = getRest(type, level);
+  let rest = getRest(typeIn, levelIn);
   console.log(rest);
   // filter the exercises according to inputs
   let warmup_area_exercises = results.warmup;
@@ -303,13 +304,11 @@ async function handleRequest() {
     cooldown_area_exercises,
     rest
   );
-  // console.log(generatedWorkout)
-  // let body = {
-  //   message: 'this worked',
-  // }
-  // console.log(generateWorkout)
 
   let generatedWorkout1 = JSON.stringify(generatedWorkout);
   console.log(generatedWorkout1);
+  if (generatedWorkout1) {
+    hideSpinner();
+  }
   // return new Response(generatedWorkout1, init)
 }

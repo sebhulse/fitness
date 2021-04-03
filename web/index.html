@@ -10,16 +10,16 @@
     />
     <meta name="generator" content="Hugo 0.82.0" />
     <title>Fitness</title>
-    <link rel="canonical" href="https://plantbased.wiki" />
+    <link rel="canonical" href="https://sebhulse.com/fitness/web" />
 
     <script src="js/bootstrap.bundle.min.js"></script>
 
     <script src="js/app.js"></script>
     <script src="js/index.js"></script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       handleRequest();
-    </script>
+    </script> -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <style>
       .bd-placeholder-img {
@@ -84,21 +84,20 @@
             <input
               type="range"
               class="w-50 form-range"
-              min="0"
-              max="40"
+              min="10"
+              max="50"
               step="1"
               id="durationrange"
-              onchange="changeLiveDuration(this.value)"
+              oninput="changeLiveDuration(this.value)"
             />
           </form>
 
-            <p><span class="badge rounded-pill bg-primary" id="durationValue">20</span> mins</p>
+            <p><span class="badge rounded-pill bg-primary" id="durationValue">30</span> mins</p>
             <div class="container text-center">
               <h4>Type</h4>
               <div
                 class="btn-group"
                 role="group"
-                aria-label="Basic radio toggle button group"
               >
                 <input
                   type="radio"
@@ -106,6 +105,7 @@
                   name="btntype"
                   id="btntype1"
                   autocomplete="off"
+                  value="strength"
                   checked
                 />
                 <label class="btn btn-outline-primary" for="btntype1"
@@ -118,6 +118,8 @@
                   name="btntype"
                   id="btntype2"
                   autocomplete="off"
+                  value="cardio"
+
                 />
                 <label class="btn btn-outline-primary" for="btntype2"
                   >Cardio</label
@@ -128,7 +130,6 @@
               <div
                 class="btn-group"
                 role="group"
-                aria-label="Basic radio toggle button group"
               >
               <input
                 type="radio"
@@ -136,6 +137,7 @@
                 name="btnarea"
                 id="btnarea4"
                 autocomplete="off"
+                value="full"
                 checked
               />
               <label class="btn btn-outline-primary" for="btnarea4"
@@ -147,6 +149,8 @@
                   name="btnarea"
                   id="btnarea1"
                   autocomplete="off"
+                  value="lower"
+
                 />
                 <label class="btn btn-outline-primary" for="btnarea1"
                   >Lower Body</label
@@ -158,6 +162,8 @@
                   name="btnarea"
                   id="btnarea2"
                   autocomplete="off"
+                  value="upper"
+
                 />
                 <label class="btn btn-outline-primary" for="btnarea2"
                   >Upper Body</label
@@ -169,6 +175,8 @@
                   name="btnarea"
                   id="btnarea3"
                   autocomplete="off"
+                  value="core"
+
                 />
                 <label class="btn btn-outline-primary" for="btnarea3"
                   >Core</label
@@ -179,7 +187,6 @@
               <div
                 class="btn-group"
                 role="group"
-                aria-label="Basic radio toggle button group"
               >
                 <input
                   type="radio"
@@ -187,6 +194,8 @@
                   name="btnintensity"
                   id="btnintensity1"
                   autocomplete="off"
+                  value="beginner"
+
                   checked
                 />
                 <label class="btn btn-outline-primary" for="btnintensity1"
@@ -199,6 +208,8 @@
                   name="btnintensity"
                   id="btnintensity2"
                   autocomplete="off"
+                  value="intermediate"
+
                 />
                 <label class="btn btn-outline-primary" for="btnintensity2"
                   >Intermediate</label
@@ -210,13 +221,18 @@
                   name="btnintensity"
                   id="btnintensity3"
                   autocomplete="off"
+                  value="advanced"
+
                 />
                 <label class="btn btn-outline-primary" for="btnintensity3"
                   >Advanced</label
                 >
             </div>
           </div>
-        <button type="button" class="btn m-5 btn-primary btn-lg">Generate Workout</button>
+        <button type="button" class="btn m-5 btn-primary btn-lg" id="generateBtn" onclick="getWorkout()">Generate Workout
+          <div class="d-none" id="loadingSpinner" ></div>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
       </div>
     </main>
   </body>
