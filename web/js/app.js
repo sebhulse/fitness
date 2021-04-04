@@ -307,8 +307,7 @@ async function handleRequest(durationIn, typeIn, areaIn, levelIn) {
 
   let generatedWorkout1 = JSON.stringify(generatedWorkout);
   console.log(generatedWorkout1);
-  if (generatedWorkout1) {
-    hideSpinner();
-  }
+  hideSpinner();
+
   // return new Response(generatedWorkout1, init)
 }

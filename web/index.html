@@ -1,239 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Workout Generator - Inspiration for busy people" />
-    <meta
-      name="author"
-      content="Seb Hulse"
-    />
-    <meta name="generator" content="Hugo 0.82.0" />
-    <title>Fitness</title>
-    <link rel="canonical" href="https://sebhulse.com/fitness/web" />
 
-    <script src="js/bootstrap.bundle.min.js"></script>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Workout Generator - Inspiration for busy people" />
+  <meta name="author" content="Seb Hulse" />
+  <meta name="generator" content="Hugo 0.82.0" />
+  <title>Fitness</title>
+  <link rel="canonical" href="https://sebhulse.com/fitness/web" />
 
-    <script src="js/app.js"></script>
-    <script src="js/index.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 
-    <!-- <script type="text/javascript">
+  <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
+
+  <!-- <script type="text/javascript">
       handleRequest();
     </script> -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
-    </style>
-  </head>
-  <body>
-    <main>
-      <div class="container">
-        <header
-          class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
-        >
-          <a
-            href="https://sebhulse.com/fitness/web"
-            class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
-          >
-            <h1>Fitness</h1>
-          </a>
-          <ul
-            class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
-          >
-            <li>
-              <a
-                href="https://api.sebhulse.com"
-                class="nav-link px-2 link-secondary"
-                >API</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://sebhulse.com/disclaimer"
-                class="nav-link px-2 link-dark"
-                >Disclaimer</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://github.com/sebhulse/fitness"
-                class="nav-link px-2 link-dark"
-                >Contribute</a
-              >
-            </li>
-          </ul>
-        </header>
-      </div>
-      <div class="container-sm">
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="https://sebhulse.com/fitness/web" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <h1>Fitness</h1>
+        </a>
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li>
+            <a href="https://api.sebhulse.com" class="nav-link px-2 link-secondary">API</a>
+          </li>
+          <li>
+            <a href="https://sebhulse.com/disclaimer" class="nav-link px-2 link-dark">Disclaimer</a>
+          </li>
+          <li>
+            <a href="https://github.com/sebhulse/fitness" class="nav-link px-2 link-dark">Contribute</a>
+          </li>
+        </ul>
+      </header>
+    </div>
+    <div id="selections" class="container-sm">
       <h2 class="text-center">Create Your Workout</h2>
-        <form>
-          <div class="form-group text-center">
-              <h4>Duration</h4>
-            <input
-              type="range"
-              class="w-50 form-range"
-              min="10"
-              max="50"
-              step="1"
-              id="durationrange"
-              oninput="changeLiveDuration(this.value)"
-            />
-          </form>
+      <form>
+        <div class="form-group text-center">
+          <h4>Duration</h4>
+          <input type="range" class="w-50 form-range" min="10" max="50" step="1" id="durationrange" oninput="changeLiveDuration(this.value)" />
+      </form>
 
-            <p><span class="badge rounded-pill bg-primary" id="durationValue">30</span> mins</p>
-            <div class="container text-center">
-              <h4>Type</h4>
-              <div
-                class="btn-group"
-                role="group"
-              >
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btntype"
-                  id="btntype1"
-                  autocomplete="off"
-                  value="strength"
-                  checked
-                />
-                <label class="btn btn-outline-primary" for="btntype1"
-                  >Strength</label
-                >
+      <p><span class="badge rounded-pill bg-primary" id="durationValue">30</span> mins</p>
+      <div class="container text-center">
+        <h4>Type</h4>
+        <div class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="btntype" id="btntype1" autocomplete="off" value="strength" checked />
+          <label class="btn btn-outline-primary" for="btntype1">Strength</label>
 
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btntype"
-                  id="btntype2"
-                  autocomplete="off"
-                  value="cardio"
+          <input type="radio" class="btn-check" name="btntype" id="btntype2" autocomplete="off" value="cardio" />
+          <label class="btn btn-outline-primary" for="btntype2">Cardio</label>
+        </div>
+        <p></p>
+        <h4>Target Area</h4>
+        <div class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="btnarea" id="btnarea4" autocomplete="off" value="full" checked />
+          <label class="btn btn-outline-primary" for="btnarea4">Full Body</label>
+          <input type="radio" class="btn-check" name="btnarea" id="btnarea1" autocomplete="off" value="lower" />
+          <label class="btn btn-outline-primary" for="btnarea1">Lower Body</label>
 
-                />
-                <label class="btn btn-outline-primary" for="btntype2"
-                  >Cardio</label
-                >
-              </div>
-              <p></p>
-              <h4>Target Area</h4>
-              <div
-                class="btn-group"
-                role="group"
-              >
-              <input
-                type="radio"
-                class="btn-check"
-                name="btnarea"
-                id="btnarea4"
-                autocomplete="off"
-                value="full"
-                checked
-              />
-              <label class="btn btn-outline-primary" for="btnarea4"
-                >Full Body</label
-              >
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnarea"
-                  id="btnarea1"
-                  autocomplete="off"
-                  value="lower"
+          <input type="radio" class="btn-check" name="btnarea" id="btnarea2" autocomplete="off" value="upper" />
+          <label class="btn btn-outline-primary" for="btnarea2">Upper Body</label>
 
-                />
-                <label class="btn btn-outline-primary" for="btnarea1"
-                  >Lower Body</label
-                >
+          <input type="radio" class="btn-check" name="btnarea" id="btnarea3" autocomplete="off" value="core" />
+          <label class="btn btn-outline-primary" for="btnarea3">Core</label>
+        </div>
+        <p></p>
+        <h4>Intensity</h4>
+        <div class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="btnintensity" id="btnintensity1" autocomplete="off" value="beginner" checked />
+          <label class="btn btn-outline-primary" for="btnintensity1">Beginner</label>
 
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnarea"
-                  id="btnarea2"
-                  autocomplete="off"
-                  value="upper"
+          <input type="radio" class="btn-check" name="btnintensity" id="btnintensity2" autocomplete="off" value="intermediate" />
+          <label class="btn btn-outline-primary" for="btnintensity2">Intermediate</label>
 
-                />
-                <label class="btn btn-outline-primary" for="btnarea2"
-                  >Upper Body</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnarea"
-                  id="btnarea3"
-                  autocomplete="off"
-                  value="core"
-
-                />
-                <label class="btn btn-outline-primary" for="btnarea3"
-                  >Core</label
-                >
-              </div>
-              <p></p>
-              <h4>Intensity</h4>
-              <div
-                class="btn-group"
-                role="group"
-              >
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnintensity"
-                  id="btnintensity1"
-                  autocomplete="off"
-                  value="beginner"
-
-                  checked
-                />
-                <label class="btn btn-outline-primary" for="btnintensity1"
-                  >Beginner</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnintensity"
-                  id="btnintensity2"
-                  autocomplete="off"
-                  value="intermediate"
-
-                />
-                <label class="btn btn-outline-primary" for="btnintensity2"
-                  >Intermediate</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="btnintensity"
-                  id="btnintensity3"
-                  autocomplete="off"
-                  value="advanced"
-
-                />
-                <label class="btn btn-outline-primary" for="btnintensity3"
-                  >Advanced</label
-                >
-            </div>
-          </div>
-        <button type="button" class="btn m-5 btn-primary btn-lg" id="generateBtn" onclick="getWorkout()">Generate Workout
-          <div class="d-none" id="loadingSpinner" ></div>
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <input type="radio" class="btn-check" name="btnintensity" id="btnintensity3" autocomplete="off" value="advanced" />
+          <label class="btn btn-outline-primary" for="btnintensity3">Advanced</label>
+        </div>
+      </div>
+      <p></p>
+      <div id="buttonContainer" class="container">
+        <button type="button" class="btn m-2 btn-primary btn-lg d-inline" id="generateBtn" onclick="getWorkout()">Generate Workout
         </button>
       </div>
-    </main>
-  </body>
+  </main>
+</body>
+
 </html>
