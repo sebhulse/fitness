@@ -8,11 +8,13 @@ function showSpinner() {
 
 function hideSpinner() {
   // delete previous alerts
-  if (document.getElementById('alert1')) {
-    document.getElementById('alert1').parentNode
-      .removeChild(document.getElementById('alert1'));
-    document.getElementById('viewButton').parentNode
-      .removeChild(document.getElementById('viewButton'));
+  if (document.getElementById("alert1")) {
+    document
+      .getElementById("alert1")
+      .parentNode.removeChild(document.getElementById("alert1"));
+    document
+      .getElementById("viewButton")
+      .parentNode.removeChild(document.getElementById("viewButton"));
   }
   // create success alert
   document.getElementById("generateBtn").innerHTML = "Generate New Workout";
@@ -24,26 +26,19 @@ function hideSpinner() {
 </div>`
   );
   // create view button
-  let viewButton = document.createElement('button')
-  viewButton.id = "viewButton"
-  viewButton.type = "button"
-  viewButton.className += 'btn m-2 btn-success btn-lg d-inline'
-  viewButton.innerHTML = 'View Workout'
+  let viewButton = document.createElement("button");
+  viewButton.id = "viewButton";
+  viewButton.type = "button";
+  viewButton.className += "btn m-2 btn-success btn-lg d-inline";
+  viewButton.innerHTML = "View Workout";
   viewButton.onclick = function() {
     window.location.href = "./view.html";
-  }
-  document.getElementById("buttonContainer").appendChild(viewButton)
+  };
+  document.getElementById("buttonContainer").appendChild(viewButton);
 }
 
-function viewButton() {
-  console.log(window.location.href);
-
-
-  return false
-}
-
-async function getWorkout() {
-  showSpinner();
+function getWorkout() {
+  // showSpinner();
   let type, area, level;
   let duration = document.getElementById("durationValue").innerHTML;
   console.log(duration);
@@ -68,5 +63,17 @@ async function getWorkout() {
       // console.log(level);
     }
   }
-  await handleRequest(duration, type, area, level);
+  console.log("hi");
+  var url =
+    "view.html?type=" +
+    encodeURIComponent(type) +
+    "&area=" +
+    encodeURIComponent(area) +
+    "&level=" +
+    encodeURIComponent(level) +
+    "&duration=" +
+    encodeURIComponent(duration);
+  console.log(url);
+  window.location.href = url;
+  return false;
 }
