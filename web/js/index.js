@@ -2,9 +2,9 @@ function changeLiveDuration(duration) {
   document.getElementById("durationValue").innerHTML = duration;
 }
 
-function showSpinner() {
-  document.getElementById("generateBtn").innerHTML = "Loading...";
-}
+// function showSpinner() {
+//   document.getElementById("generateBtn").innerHTML = "Loading...";
+// }
 
 function hideSpinner() {
   // delete previous alerts
@@ -38,32 +38,28 @@ function hideSpinner() {
 }
 
 function getWorkout() {
-  // showSpinner();
+  // get form parameters
   let type, area, level;
   let duration = document.getElementById("durationValue").innerHTML;
-  console.log(duration);
   let typeEl = document.getElementsByName("btntype");
   for (var i = 0; i < typeEl.length; i++) {
     if (typeEl[i].checked) {
       type = typeEl[i].value;
-      // console.log(type);
     }
   }
   let areaEl = document.getElementsByName("btnarea");
   for (var i = 0; i < areaEl.length; i++) {
     if (areaEl[i].checked) {
       area = areaEl[i].value;
-      // console.log(area);
     }
   }
   let levelEl = document.getElementsByName("btnintensity");
   for (var i = 0; i < levelEl.length; i++) {
     if (levelEl[i].checked) {
       level = levelEl[i].value;
-      // console.log(level);
     }
   }
-  console.log("hi");
+  // send form parameters to view.html with string query
   var url =
     "view.html?type=" +
     encodeURIComponent(type) +
@@ -73,7 +69,6 @@ function getWorkout() {
     encodeURIComponent(level) +
     "&duration=" +
     encodeURIComponent(duration);
-  console.log(url);
   window.location.href = url;
   return false;
 }

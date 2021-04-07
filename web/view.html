@@ -1,92 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Workout Generator - Inspiration for busy people"
+    />
+    <meta name="author" content="Seb Hulse" />
+    <meta name="generator" content="Hugo 0.82.0" />
+    <title>Fitness</title>
+    <link rel="canonical" href="https://sebhulse.com/fitness/web" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Workout Generator - Inspiration for busy people" />
-  <meta name="author" content="Seb Hulse" />
-  <meta name="generator" content="Hugo 0.82.0" />
-  <title>Fitness</title>
-  <link rel="canonical" href="https://sebhulse.com/fitness/web" />
+    <script src="js/bootstrap.bundle.min.js"></script>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/view.js"></script>
 
-  <script src="js/app.js"></script>
-  <script src="js/view.js"></script>
-
-  <script type="text/javascript">
-    window.onload = pageLoad();
-  </script>
-  <link href="css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
+    <script type="text/javascript">
+      window.onload = pageLoad();
+    </script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <main>
-    <div class="container">
-      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <a href="https://sebhulse.com/fitness/web" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-          <h1>Fitness</h1>
-        </a>
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li>
-            <a href="https://api.sebhulse.com" class="nav-link px-2 link-secondary">API</a>
-          </li>
-          <li>
-            <a href="https://sebhulse.com/disclaimer" class="nav-link px-2 link-dark">Disclaimer</a>
-          </li>
-          <li>
-            <a href="https://github.com/sebhulse/fitness" class="nav-link px-2 link-dark">Contribute</a>
-          </li>
-        </ul>
-      </header>
-    </div>
-    <div class="container-sm text-center">
-      <h2 class="text-center">Workout Breakdown</h2>
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
 
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Accordion Item #1
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>This is the first item's accordion body.</strong> It is
-              hidden by default, until the collapse plugin adds the
-              appropriate classes that we use to style each element. These
-              classes control the overall appearance, as well as the showing
-              and hiding via CSS transitions. You can modify any of this with
-              custom CSS or overriding our default variables. It's also worth
-              noting that just about any HTML can go within the
-              <code>.accordion-body</code>, though the transition does limit
-              overflow.
-            </div>
-          </div>
-        </div>
+  <body>
+    <main>
+      <div class="container">
+        <header
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
+        >
+          <a
+            href="https://sebhulse.com/fitness/web"
+            class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
+          >
+            <h1>Fitness</h1>
+          </a>
+          <ul
+            class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
+          >
+            <li>
+              <a
+                href="https://api.sebhulse.com"
+                class="nav-link px-2 link-secondary"
+                >API</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://sebhulse.com/disclaimer"
+                class="nav-link px-2 link-dark"
+                >Disclaimer</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://github.com/sebhulse/fitness"
+                class="nav-link px-2 link-dark"
+                >Contribute</a
+              >
+            </li>
+          </ul>
+        </header>
       </div>
+      <div class="container-sm text-center">
+        <h2 class="text-center">Workout Breakdown</h2>
 
-      <button type="button" class="btn m-5 btn-primary btn-lg">
-        Generate Workout
-      </button>
-    </div>
-  </main>
-</body>
+        <div id="accordionPlaceholder" class="accordion"></div>
 
+        <button type="button" class="btn m-5 btn-primary btn-lg">
+          Generate Workout
+        </button>
+      </div>
+    </main>
+  </body>
 </html>
