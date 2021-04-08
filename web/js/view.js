@@ -1,3 +1,4 @@
+// this takes the query string parameters and sends them to the workout generator function (refresh will create new workout)
 async function pageLoad() {
   const params = new URLSearchParams(window.location.search);
 
@@ -10,10 +11,9 @@ async function pageLoad() {
   buildAccordion(response);
 }
 
-// create accordion
+// create accordion element
 async function buildAccordion(workout) {
   const jsonWorkout = await JSON.parse(workout);
-  console.log(jsonWorkout);
 
   // for each section in the whole json (warmup, cooldown etc), create the body text
   Object.keys(jsonWorkout).forEach(function(key) {
@@ -22,9 +22,8 @@ async function buildAccordion(workout) {
 
     // for each exercises 'blob' section in each section
     Object.keys(jsonWorkout[key]).forEach(function(key1) {
-      // console.log(key);
-      // console.log(jsonWorkout[key][key1]["exercise"]);
       let exercise = jsonWorkout[key][key1]["exercise"];
+      // checks if there's an array
       if (typeof exercise !== "undefined") {
         let bodyListItem = `<li class="list-group-item">${exercise}</li>`;
         bodyShell += bodyListItem;
@@ -32,7 +31,6 @@ async function buildAccordion(workout) {
         let exerciseArray = jsonWorkout[key][key1];
         for (var i = 0; i < exerciseArray.length; i++) {
           let arrayExercise = exerciseArray[i].exercise;
-          // console.log(arrayExercise);
           let bodyListItem = `<li class="list-group-item">${arrayExercise}</li>`
           bodyShell += bodyListItem
         }
@@ -41,6 +39,8 @@ async function buildAccordion(workout) {
     bodyShell += `</ul>`;
 
     let iterator = `iterator${key}`;
+
+    // create the accordion shell element
     let accordion = `<div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${iterator}" aria-expanded="true" aria-controls="${iterator}">
