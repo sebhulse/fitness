@@ -1,91 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Workout Generator - Inspiration for busy people"
-    />
-    <meta name="author" content="Seb Hulse" />
-    <meta name="generator" content="Hugo 0.82.0" />
-    <title>Fitness</title>
-    <link rel="canonical" href="https://sebhulse.com/fitness/web" />
 
-    <script src="js/bootstrap.bundle.min.js"></script>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Workout Generator - Inspiration for busy people" />
+  <meta name="author" content="Seb Hulse" />
+  <meta name="generator" content="Hugo 0.82.0" />
+  <title>Fitness</title>
+  <link rel="canonical" href="https://sebhulse.com/fitness/web" />
 
-    <script src="js/app.js"></script>
-    <script src="js/view.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 
-    <script type="text/javascript">
-      window.onload = pageLoad();
-    </script>
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+  <script src="js/app.js"></script>
+  <script src="js/view.js"></script>
+
+  <script type="text/javascript">
+    window.onload = pageLoad();
+  </script>
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
+  </style>
+</head>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-  </head>
+<body>
+  <main>
+    <div class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="https://sebhulse.com/fitness/web" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <h1>Fitness</h1>
+        </a>
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li>
+            <a href="https://api.sebhulse.com" class="nav-link px-2 link-secondary">API</a>
+          </li>
+          <li>
+            <a href="https://sebhulse.com/disclaimer" class="nav-link px-2 link-dark">Disclaimer</a>
+          </li>
+          <li>
+            <a href="https://github.com/sebhulse/fitness" class="nav-link px-2 link-dark">Contribute</a>
+          </li>
+        </ul>
+      </header>
+    </div>
+    <div class="container-sm text-center">
+      <h2 class="text-center">Workout Breakdown</h2>
 
-  <body>
-    <main>
-      <div class="container">
-        <header
-          class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
-        >
-          <a
-            href="https://sebhulse.com/fitness/web"
-            class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
-          >
-            <h1>Fitness</h1>
-          </a>
-          <ul
-            class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
-          >
-            <li>
-              <a
-                href="https://api.sebhulse.com"
-                class="nav-link px-2 link-secondary"
-                >API</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://sebhulse.com/disclaimer"
-                class="nav-link px-2 link-dark"
-                >Disclaimer</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://github.com/sebhulse/fitness"
-                class="nav-link px-2 link-dark"
-                >Contribute</a
-              >
-            </li>
-          </ul>
-        </header>
-      </div>
-      <div class="container-sm text-center">
-        <h2 class="text-center">Workout Breakdown</h2>
+      <div id="accordionPlaceholder" class="accordion  accordion-flush"></div>
 
-        <div id="accordionPlaceholder" class="accordion"></div>
+      <button type="button" class="btn m-5 btn-primary btn-lg">
+        Generate Workout
+      </button>
+    </div>
+  </main>
+</body>
 
-        <button type="button" class="btn m-5 btn-primary btn-lg">
-          Generate Workout
-        </button>
-      </div>
-    </main>
-  </body>
 </html>
