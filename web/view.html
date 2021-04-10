@@ -16,7 +16,7 @@
   <script src="js/view.js"></script>
 
   <script type="text/javascript">
-    window.onload = pageLoad();
+    window.onload = viewPageLoad();
   </script>
   <link href="css/bootstrap.min.css" rel="stylesheet" />
   <style>
@@ -60,10 +60,16 @@
       <h2 class="text-center">Workout Breakdown</h2>
 
       <div id="accordionPlaceholder" class="accordion  accordion-flush"></div>
+      <div class="container">
+        <button type="button" class="btn m-3 btn-primary btn-lg" onclick="return changeOptions()">
+          Change Options
+        </button>
+        <button type="button" class="btn m-3 btn-primary btn-lg" onclick="window.location.reload(true)">
+          Re-Generate Workout
+        </button>
 
-      <button type="button" class="btn m-5 btn-primary btn-lg">
-        Generate Workout
-      </button>
+      </div>
+
     </div>
   </main>
 </body>

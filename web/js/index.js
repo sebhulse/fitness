@@ -1,3 +1,42 @@
+// pre-fill workout parameter buttons with previous workout options
+async function indexPageLoad() {
+  let parameters = getParameters();
+  if (parameters.duration >= 10 && parameters.duration <= 50) {
+    document.getElementById("durationrange").value = parameters.duration;
+    changeLiveDuration(parameters.duration);
+  }
+  if (parameters.type) {
+    let typeId = `btnType${parameters.type}`;
+    let btnTypeContainer = document.getElementById("btntypecontainer");
+    let btnsType = btnTypeContainer.getElementsByClassName("btn-check");
+    for (let i = 0; i < btnsType.length; i++) {
+      if (btnsType[i].id === typeId) {
+        btnsType[i].checked = "true";
+      }
+    }
+  }
+  if (parameters.area) {
+    let areaId = `btnArea${parameters.area}`;
+    let btnAreaContainer = document.getElementById("btnareacontainer");
+    let btnsArea = btnAreaContainer.getElementsByClassName("btn-check");
+    for (let i = 0; i < btnsArea.length; i++) {
+      if (btnsArea[i].id === areaId) {
+        btnsArea[i].checked = "true";
+      }
+    }
+  }
+  if (parameters.level) {
+    let intensityId = `btnIntensity${parameters.level}`;
+    let btnLevelContainer = document.getElementById("btnintensitycontainer");
+    let btnsLevel = btnLevelContainer.getElementsByClassName("btn-check");
+    for (let i = 0; i < btnsLevel.length; i++) {
+      if (btnsLevel[i].id === intensityId) {
+        btnsLevel[i].checked = "true";
+      }
+    }
+  }
+}
+
 // change the duration slider value on the fly
 function changeLiveDuration(duration) {
   document.getElementById("durationValue").innerHTML = duration;

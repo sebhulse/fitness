@@ -14,6 +14,7 @@
 
   <script src="js/app.js"></script>
   <script src="js/index.js"></script>
+  <script src="js/view.js"></script>
 
   <link href="css/bootstrap.min.css" rel="stylesheet" />
   <style>
@@ -60,42 +61,43 @@
           <h4>Duration</h4>
           <input type="range" class="w-50 form-range" min="10" max="50" step="1" id="durationrange" oninput="changeLiveDuration(this.value)" />
       </form>
-
       <p><span class="badge rounded-pill bg-primary" id="durationValue">30</span> mins</p>
+
       <div class="container text-center">
         <h4>Type</h4>
-        <div class="btn-group" role="group">
-          <input type="radio" class="btn-check" name="btntype" id="btntype1" autocomplete="off" value="strength" checked />
-          <label class="btn btn-outline-primary" for="btntype1">Strength</label>
+        <div id="btntypecontainer" class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="btntype" id="btnTypestrength" autocomplete="off" value="strength" checked />
+          <label class="btn btn-outline-primary" for="btnTypestrength">Strength</label>
 
-          <input type="radio" class="btn-check" name="btntype" id="btntype2" autocomplete="off" value="cardio" />
-          <label class="btn btn-outline-primary" for="btntype2">Cardio</label>
+          <input type="radio" class="btn-check" name="btntype" id="btnTypecardio" autocomplete="off" value="cardio" />
+          <label class="btn btn-outline-primary" for="btnTypecardio">Cardio</label>
         </div>
         <p></p>
         <h4>Target Area</h4>
-        <div class="btn-group" role="group">
-          <input type="radio" class="btn-check" name="btnarea" id="btnarea4" autocomplete="off" value="full" checked />
-          <label class="btn btn-outline-primary" for="btnarea4">Full Body</label>
-          <input type="radio" class="btn-check" name="btnarea" id="btnarea1" autocomplete="off" value="lower" />
-          <label class="btn btn-outline-primary" for="btnarea1">Lower Body</label>
+        <div id="btnareacontainer" class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="btnarea" id="btnAreafull" autocomplete="off" value="full" checked />
+          <label class="btn btn-outline-primary" for="btnAreafull">Full Body</label>
 
-          <input type="radio" class="btn-check" name="btnarea" id="btnarea2" autocomplete="off" value="upper" />
-          <label class="btn btn-outline-primary" for="btnarea2">Upper Body</label>
+          <input type="radio" class="btn-check" name="btnarea" id="btnArealower" autocomplete="off" value="lower" />
+          <label class="btn btn-outline-primary" for="btnArealower">Lower Body</label>
 
-          <input type="radio" class="btn-check" name="btnarea" id="btnarea3" autocomplete="off" value="core" />
-          <label class="btn btn-outline-primary" for="btnarea3">Core</label>
+          <input type="radio" class="btn-check" name="btnarea" id="btnAreaupper" autocomplete="off" value="upper" />
+          <label class="btn btn-outline-primary" for="btnAreaupper">Upper Body</label>
+
+          <input type="radio" class="btn-check" name="btnarea" id="btnAreacore" autocomplete="off" value="core" />
+          <label class="btn btn-outline-primary" for="btnAreacore">Core</label>
         </div>
         <p></p>
         <h4>Intensity</h4>
-        <div class="btn-group" role="group">
-          <input type="radio" class="btn-check" name="btnintensity" id="btnintensity1" autocomplete="off" value="beginner" checked />
-          <label class="btn btn-outline-primary" for="btnintensity1">Beginner</label>
+        <div id="btnintensitycontainer" class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="btnintensity" id="btnIntensitybeginner" autocomplete="off" value="beginner" checked />
+          <label class="btn btn-outline-primary" for="btnIntensitybeginner">Beginner</label>
 
-          <input type="radio" class="btn-check" name="btnintensity" id="btnintensity2" autocomplete="off" value="intermediate" />
-          <label class="btn btn-outline-primary" for="btnintensity2">Intermediate</label>
+          <input type="radio" class="btn-check" name="btnintensity" id="btnIntensityintermediate" autocomplete="off" value="intermediate" />
+          <label class="btn btn-outline-primary" for="btnIntensityintermediate">Intermediate</label>
 
-          <input type="radio" class="btn-check" name="btnintensity" id="btnintensity3" autocomplete="off" value="advanced" />
-          <label class="btn btn-outline-primary" for="btnintensity3">Advanced</label>
+          <input type="radio" class="btn-check" name="btnintensity" id="btnIntensityadvanced" autocomplete="off" value="advanced" />
+          <label class="btn btn-outline-primary" for="btnIntensityadvanced">Advanced</label>
         </div>
       </div>
       <p></p>
@@ -105,5 +107,8 @@
       </div>
   </main>
 </body>
+<script type="text/javascript">
+  window.onload = indexPageLoad();
+</script>
 
 </html>

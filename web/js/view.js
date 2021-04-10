@@ -1,14 +1,41 @@
 // this takes the query string parameters and sends them to the workout generator function (refresh will create new workout)
-async function pageLoad() {
-  const params = new URLSearchParams(window.location.search);
-
-  const type = params.get("type");
-  const area = params.get("area");
-  const level = params.get("level");
-  const duration = params.get("duration");
-
-  let response = await handleRequest(duration, type, area, level);
+async function viewPageLoad() {
+  parameters = getParameters();
+  let response = await handleRequest(
+    parameters.duration,
+    parameters.type,
+    parameters.area,
+    parameters.level
+  );
   buildAccordion(response);
+}
+
+function changeOptions() {
+  parameters = getParameters();
+  // send form parameters to index.html with string query
+  var url =
+    "index.html?type=" +
+    encodeURIComponent(parameters.type) +
+    "&area=" +
+    encodeURIComponent(parameters.area) +
+    "&level=" +
+    encodeURIComponent(parameters.level) +
+    "&duration=" +
+    encodeURIComponent(parameters.duration);
+  window.location.href = url;
+  return false;
+}
+
+// get parameters from URL string
+function getParameters() {
+  const params = new URLSearchParams(window.location.search);
+  body = {
+    type: params.get("type"),
+    area: params.get("area"),
+    level: params.get("level"),
+    duration: params.get("duration"),
+  };
+  return body;
 }
 
 // create accordion element
@@ -31,8 +58,8 @@ async function buildAccordion(workout) {
         let exerciseArray = jsonWorkout[key][key1];
         for (var i = 0; i < exerciseArray.length; i++) {
           let arrayExercise = exerciseArray[i].exercise;
-          let bodyListItem = `<li class="list-group-item">${arrayExercise}</li>`
-          bodyShell += bodyListItem
+          let bodyListItem = `<li class="list-group-item">${arrayExercise}</li>`;
+          bodyShell += bodyListItem;
         }
       }
     });
@@ -41,7 +68,7 @@ async function buildAccordion(workout) {
     let iterator = `iterator${key}`;
 
     // create the accordion shell element
-    let accordion = `<div class="accordion-item">
+    let accordion = `<div class="accordion-item" id="accordionOne">
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${iterator}" aria-expanded="true" aria-controls="${iterator}">
                 ${name}
