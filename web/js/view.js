@@ -7,7 +7,13 @@ async function viewPageLoad() {
     parameters.area,
     parameters.level
   );
+
   buildAccordion(response);
+  let workout = new Workout(parameters.duration,
+    parameters.type,
+    parameters.area,
+    parameters.level)
+  console.log(workout)
 }
 
 function changeOptions() {

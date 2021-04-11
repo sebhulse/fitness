@@ -42,7 +42,7 @@ function changeLiveDuration(duration) {
   document.getElementById("durationValue").innerHTML = duration;
 }
 
-
+// resets options on home screen (without reloading page)
 function resetOptions() {
   let btnLevelContainer = document.getElementById("btnintensitycontainer");
   let btnsLevel = btnLevelContainer.getElementsByClassName("btn-check");
