@@ -42,6 +42,24 @@ function changeLiveDuration(duration) {
   document.getElementById("durationValue").innerHTML = duration;
 }
 
+
+function resetOptions() {
+  let btnLevelContainer = document.getElementById("btnintensitycontainer");
+  let btnsLevel = btnLevelContainer.getElementsByClassName("btn-check");
+  btnsLevel[0].checked = "true"
+
+  let btnAreaContainer = document.getElementById("btnareacontainer");
+  let btnsArea = btnAreaContainer.getElementsByClassName("btn-check");
+  btnsArea[0].checked = "true"
+
+  let btnTypeContainer = document.getElementById("btntypecontainer");
+  let btnsType = btnTypeContainer.getElementsByClassName("btn-check");
+  btnsType[0].checked = "true"
+
+  document.getElementById("durationrange").value = 30;
+  changeLiveDuration(30);
+}
+
 // gather form parameters and pass them to the view page through a query string
 function getWorkout() {
   // get form parameters

@@ -41,6 +41,7 @@ function getParameters() {
 // create accordion element
 async function buildAccordion(workout) {
   const jsonWorkout = await JSON.parse(workout);
+  console.log(jsonWorkout);
 
   // for each section in the whole json (warmup, cooldown etc), create the body text
   Object.keys(jsonWorkout).forEach(function(key) {
@@ -50,15 +51,31 @@ async function buildAccordion(workout) {
     // for each exercises 'blob' section in each section
     Object.keys(jsonWorkout[key]).forEach(function(key1) {
       let exercise = jsonWorkout[key][key1]["exercise"];
-      // checks if there's an array
+      let durationWC = jsonWorkout[key][key1]["duration"];
+      if (exercise === "rest") {
+        exercise = "Rest"
+      } else if (exercise === "transition") {
+        exercise = "Section Transition"
+      }
+      // checks if there's an array and if so, loops through the array to display exercises
       if (typeof exercise !== "undefined") {
-        let bodyListItem = `<li class="list-group-item">${exercise}</li>`;
+        let bodyListItem = `<li class="list-group-item d-flex justify-content-between">${exercise}
+        <small class="text-muted">${durationWC}s</small>
+        </li>`;
         bodyShell += bodyListItem;
       } else {
         let exerciseArray = jsonWorkout[key][key1];
         for (var i = 0; i < exerciseArray.length; i++) {
           let arrayExercise = exerciseArray[i].exercise;
-          let bodyListItem = `<li class="list-group-item">${arrayExercise}</li>`;
+          if (arrayExercise === "rest") {
+            arrayExercise = "Rest"
+          } else if (arrayExercise === "transition") {
+            arrayExercise = "Section Transition"
+          }
+          let exDuration = exerciseArray[i].duration;
+          let bodyListItem = `<li class="list-group-item d-flex justify-content-between">${arrayExercise}
+            <small class="text-muted">${exDuration}s</small>
+          </li>`;
           bodyShell += bodyListItem;
         }
       }
@@ -75,7 +92,7 @@ async function buildAccordion(workout) {
               </button>
             </h2>
             <div id="${iterator}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionPlaceholder">
-              <div class="accordion-body">
+              <div class="accordion-body col-md-8 mx-auto">
                 ${bodyShell}
               </div>
             </div>
