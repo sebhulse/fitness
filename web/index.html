@@ -59,7 +59,11 @@
       <form>
         <div class="form-group text-center">
           <h4>Duration</h4>
-          <input type="range" class="w-50 form-range" min="10" max="50" step="1" id="durationrange" oninput="changeLiveDuration(this.value)" />
+          <div class="row justify-content-center">
+            <div class="col-md-6" accesskey="">
+              <input type="range" class="form-range" min="10" max="50" step="1" id="durationrange" oninput="changeLiveDuration(this.value)" />
+            </div>
+          </div>
       </form>
       <p><span class="badge rounded-pill bg-primary" id="durationValue">30</span> mins</p>
 
