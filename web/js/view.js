@@ -1,19 +1,22 @@
 // this takes the query string parameters and sends them to the workout generator function (refresh will create new workout)
 async function viewPageLoad() {
   parameters = getParameters();
-  let response = await handleRequest(
-    parameters.duration,
-    parameters.type,
-    parameters.area,
-    parameters.level
-  );
-
-  buildAccordion(response);
-  let workout = new Workout(parameters.duration,
+  // let response = await handleRequest(
+  //   parameters.duration,
+  //   parameters.type,
+  //   parameters.area,
+  //   parameters.level
+  // );
+  let workout1 = new Workout(parameters.duration,
     parameters.type,
     parameters.area,
     parameters.level)
-  console.log(workout)
+  console.log(workout1)
+  let genWorkout = workout1.main()
+  console.log(genWorkout)
+
+  buildAccordion(genWorkout);
+
 }
 
 function changeOptions() {

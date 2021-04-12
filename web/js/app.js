@@ -296,5 +296,5 @@ async function handleRequest(durationIn, typeIn, areaIn, levelIn) {
   let generatedWorkout1 = JSON.stringify(generatedWorkout);
   // console.log(generatedWorkout1);
 
-  return (generatedWorkout1)
+  return generatedWorkout1;
 }
