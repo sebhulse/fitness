@@ -228,8 +228,13 @@ function generateWorkout(
   warmupExercisesIn,
   workoutExercisesIn,
   cooldownExercisesIn,
-  rest
+  rest,
+  duration,
+  typeIn,
+  areaIn,
+  levelIn
 ) {
+
   let warmupDuration = Math.floor(durationIn * 0.1);
   // console.log(warmupDuration)
   let cooldownDuration = warmupDuration;
@@ -261,7 +266,10 @@ function generateWorkout(
     section,
     rest
   );
+  let created = new Date();
+
   let body = {
+    parameters: [parseInt(duration), typeIn, areaIn, levelIn, created],
     warmup: warmup,
     workout: workout,
     finisher: finisher,
@@ -290,11 +298,15 @@ async function handleRequest(durationIn, typeIn, areaIn, levelIn) {
     warmup_area_exercises,
     workout_exercises,
     cooldown_area_exercises,
-    rest
+    rest,
+    durationIn,
+    typeIn,
+    areaIn,
+    levelIn
   );
 
-  let generatedWorkout1 = JSON.stringify(generatedWorkout);
+  // let generatedWorkout1 = JSON.stringify(generatedWorkout);
   // console.log(generatedWorkout1);
 
-  return generatedWorkout1;
+  return generatedWorkout;
 }

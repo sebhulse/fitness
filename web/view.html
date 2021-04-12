@@ -58,17 +58,26 @@
       </header>
     </div>
     <div class="container-sm text-center">
-      <h2 class="text-center">Workout Breakdown</h2>
+      <div class="row">
+        <div class="col-sm">
 
-      <div id="accordionPlaceholder" class="accordion  accordion-flush"></div>
-      <div class="container">
-        <button type="button" class="btn m-3 btn-primary btn-lg" onclick="return changeOptions()">
-          Change Options
-        </button>
-        <button type="button" class="btn m-3 btn-primary btn-lg" onclick="window.location.reload(true)">
-          Re-Generate Workout
-        </button>
+          <h2 class="text-center">Workout Breakdown</h2>
 
+          <div id="accordionPlaceholder" class="accordion  accordion-flush"></div>
+          <div class="container">
+            <button type="button" class="btn m-3 btn-primary btn-lg" onclick="return changeOptions()">
+              Change Options
+            </button>
+            <button type="button" class="btn m-3 btn-primary btn-lg" onclick="window.location.reload(true)">
+              Re-Generate Workout
+            </button>
+          </div>
+        </div>
+        <div class="col-sm">
+          <h2 class="text-center">History</h2>
+          <div id="listHistoryPlaceholder" class="accordion  accordion-flush"></div>
+
+        </div>
       </div>
 
     </div>
