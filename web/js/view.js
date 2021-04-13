@@ -51,6 +51,12 @@ function getParameters() {
 // create accordion element
 async function buildAccordion(jsonWorkout) {
 
+  // clear accordionPlaceholder before building
+  const accordionPlaceholder = document.querySelector('#accordionPlaceholder');
+  if (accordionPlaceholder) {
+    removeAllChildNodes(accordionPlaceholder);
+  }
+
   // for each section in the whole json (warmup, cooldown etc), create the body text
   Object.keys(jsonWorkout).forEach(function(key) {
     if (key != "parameters") {
@@ -195,5 +201,12 @@ function buildHistory() {
       .getElementById("listHistoryPlaceholder")
       .appendChild(ol)
       .appendChild(histButton);
+  }
+}
+
+// removes all child nodes of a given element
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
   }
 }
