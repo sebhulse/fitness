@@ -8,14 +8,9 @@ async function viewPageLoad() {
     parameters.level
   );
   let noStoredItems = sessionStorage.length + 1;
-  console.log(noStoredItems);
   let resString = JSON.stringify(response);
   sessionStorage.setItem(noStoredItems, resString);
-  let anothername = sessionStorage.getItem(noStoredItems);
 
-  let json2 = JSON.parse(anothername);
-  console.log(json2);
-  // console.log(JSON.parse(response));
   buildAccordion(response);
   buildHistory();
 }
@@ -51,11 +46,8 @@ function getParameters() {
 // create accordion element
 async function buildAccordion(jsonWorkout) {
   // console.log(typeof jsonWorkout);
-  if (typeof jsonWorkout === "object") {
-    console.log("input is an object");
-  } else {
+  if (typeof jsonWorkout !== "object") {
     jsonWorkout = JSON.parse(jsonWorkout);
-    console.log(jsonWorkout);
   }
 
   // clear accordionPlaceholder before building
@@ -91,7 +83,7 @@ async function buildAccordion(jsonWorkout) {
           bodyListItem.id = "bodyListItem";
 
           let durationSmall = document.createElement("small");
-          durationSmall.className = "text-muted";
+          durationSmall.className = "text-secondary";
           durationSmall.innerHTML = `${durationWC}s`;
           durationSmall.id = "durationSmall";
 
@@ -116,7 +108,7 @@ async function buildAccordion(jsonWorkout) {
             bodyListItem2.id = "bodyListItem2";
 
             let durationSmall2 = document.createElement("small");
-            durationSmall2.className = "text-muted";
+            durationSmall2.className = "text-secondary";
             durationSmall2.innerHTML = `${exDuration}s`;
             durationSmall2.id = "durationSmall2";
 
@@ -171,13 +163,21 @@ async function buildAccordion(jsonWorkout) {
 
 // create history element
 function buildHistory() {
+  // clear accordionPlaceholder before building
+  const listHistoryPlaceholder = document.querySelector(
+    "#listHistoryPlaceholder"
+  );
+  if (listHistoryPlaceholder) {
+    removeAllChildNodes(listHistoryPlaceholder);
+  }
+
   let keys = [];
   for (var i = 0; i < sessionStorage.length; i++) {
     keys.push(sessionStorage.key(i));
   }
   keys.sort((a, b) => a - b);
 
-  let ol = document.createElement("ol");
+  let ol = document.createElement("div");
   ol.className = "list-group";
   ol.id = "listContainer";
 
@@ -186,35 +186,40 @@ function buildHistory() {
     let data = sessionStorage.getItem(i + 1);
     let jsonData = JSON.parse(data);
     let parameters = jsonData.parameters;
-    console.log(parameters);
 
     let time = Date.parse(parameters.time);
     let timeNow = Date.now();
     let timeDifferenceS = Math.round((timeNow - time) / 1000);
     let hrsminse = secondsToHms(timeDifferenceS);
 
-    let histButton = document.createElement("button");
+    let histButton = document.createElement("a");
     histButton.setAttribute(
       "onclick",
       `buildAccordion(${JSON.stringify(jsonData)})`
     );
-    histButton.type = "button";
-    histButton.className = "list-group-item list-group-item-action";
-    histButton.id = `histButton${i}`;
+    histButton.id = `histButton${i + 1}`;
+    histButton.setAttribute("data-bs-toggle", "list");
+    console.log("no keys" + keys.length);
+    console.log("key no" + i);
+    if (i === keys.length - 1) {
+      histButton.className = "list-group-item list-group-item-action active";
+    } else {
+      histButton.className = "list-group-item list-group-item-action";
+
+    }
 
     let histInnerDiv = document.createElement("div");
     histInnerDiv.className = "d-flex justify-content-between";
     histInnerDiv.innerHTML = `Workout ${key}`;
-    histInnerDiv.id = `histInnerDiv${i}`;
+    histInnerDiv.id = `histInnerDiv${i + 1}`;
 
     let histInnerSmall = document.createElement("small");
-    histInnerSmall.className = "text-muted";
     histInnerSmall.innerHTML = `Created ${hrsminse} ago`;
     histInnerSmall.id = "histInnerSmall";
 
-    let histDiv = document.createElement("div");
-    histDiv.className = "ms-2 me-auto text-muted";
-    histDiv.id = `histDiv${i}`;
+    let histDiv = document.createElement("small");
+    histDiv.className = "ms-2 me-auto";
+    histDiv.id = `histDiv${i + 1}`;
     histDiv.innerHTML = `${parameters.duration} mins | ${wordToUpperCase(
       parameters.type
     )} | ${wordToUpperCase(parameters.area)} | ${wordToUpperCase(
@@ -229,6 +234,11 @@ function buildHistory() {
       .appendChild(ol)
       .appendChild(histButton);
   }
+}
+
+function clearHistory() {
+  window.sessionStorage.clear();
+  viewPageLoad();
 }
 
 function secondsToHms(d) {
