@@ -45,7 +45,6 @@ function getParameters() {
 
 // create accordion element
 async function buildAccordion(jsonWorkout) {
-  // console.log(typeof jsonWorkout);
   if (typeof jsonWorkout !== "object") {
     jsonWorkout = JSON.parse(jsonWorkout);
   }
@@ -63,11 +62,13 @@ async function buildAccordion(jsonWorkout) {
       let ul = document.createElement("ul");
       ul.className = "list-group list-group-flush";
       ul.id = "listContainerWorkout";
+      let innerSectionLength = 0;
 
       // for each exercises 'blob' section in each section
       Object.keys(jsonWorkout[key]).forEach(function(key1) {
         let exercise = jsonWorkout[key][key1]["exercise"];
         let durationWC = jsonWorkout[key][key1]["duration"];
+
         if (exercise === "rest") {
           exercise = "Rest";
         } else if (exercise === "transition") {
@@ -76,6 +77,8 @@ async function buildAccordion(jsonWorkout) {
 
         // checks if there's an array and if so, loops through the array to display exercises
         if (typeof exercise !== "undefined") {
+          innerSectionLength += durationWC;
+          console.log(innerSectionLength);
           let bodyListItem = document.createElement("li");
           bodyListItem.className =
             "list-group-item d-flex justify-content-between";
@@ -100,6 +103,8 @@ async function buildAccordion(jsonWorkout) {
               arrayExercise = "Section Transition";
             }
             let exDuration = exerciseArray[i].duration;
+            innerSectionLength += exDuration;
+            console.log(innerSectionLength);
 
             let bodyListItem2 = document.createElement("li");
             bodyListItem2.className =
@@ -118,11 +123,13 @@ async function buildAccordion(jsonWorkout) {
           }
         }
       });
+      let stringSectionTime = secondsToHms(innerSectionLength)
+      console.log("seconds " + stringSectionTime);
 
       let iterator = `iterator${key}`;
 
       let accordionDiv = document.createElement("div");
-      accordionDiv.className = "accordion-item";
+      accordionDiv.className = "accordion-item ";
       accordionDiv.id = "accordionOne";
 
       let accordionHeader = document.createElement("h2");
@@ -136,7 +143,14 @@ async function buildAccordion(jsonWorkout) {
       accordionButton.setAttribute("data-bs-target", `#${iterator}`);
       accordionButton.setAttribute("aria-expanded", "true");
       accordionButton.setAttribute("aria-controls", iterator);
-      accordionButton.innerHTML = name;
+      accordionButton.innerHTML = `${name} | ${stringSectionTime}`;
+
+      // let accordionSmall = document.createElement("span");
+      // accordionSmall.className = "badge bg-primary rounded-pill";
+      // accordionSmall.id = "accordionSmall";
+      // accordionSmall.innerHTML = "1m 30s";
+      // accordionSmall.setAttribute("aria-labelledby", "headingOne");
+      // accordionSmall.setAttribute("data-bs-parent", "#accordionPlaceholder");
 
       let accordionDiv2 = document.createElement("div");
       accordionDiv2.className = "accordion-collapse collapse";
@@ -152,6 +166,7 @@ async function buildAccordion(jsonWorkout) {
       accordionDiv.appendChild(accordionDiv2);
       accordionDiv2.appendChild(accordionDiv3);
       accordionDiv3.appendChild(ul);
+      // accordionButton.appendChild(accordionSmall)
 
       let accordionPlaceholder = document.getElementById(
         "accordionPlaceholder"
@@ -199,13 +214,10 @@ function buildHistory() {
     );
     histButton.id = `histButton${i + 1}`;
     histButton.setAttribute("data-bs-toggle", "list");
-    console.log("no keys" + keys.length);
-    console.log("key no" + i);
     if (i === keys.length - 1) {
       histButton.className = "list-group-item list-group-item-action active";
     } else {
       histButton.className = "list-group-item list-group-item-action";
-
     }
 
     let histInnerDiv = document.createElement("div");
@@ -242,15 +254,24 @@ function clearHistory() {
 }
 
 function secondsToHms(d) {
+  let showSeconds = true
+  if ((d % 60 === 0) && d !== 0) {
+    showSeconds = false
+  }
+
   d = Number(d);
   var h = Math.floor(d / 3600);
   var m = Math.floor((d % 3600) / 60);
   var s = Math.floor((d % 3600) % 60);
 
-  var hDisplay = h > 0 ? h + "h, " : "";
-  var mDisplay = m > 0 ? m + "m, " : "";
+  var hDisplay = h > 0 ? h + "h " : "";
+  var mDisplay = m > 0 ? m + "m " : "";
   var sDisplay = s > 0 ? s + "s" : "0s";
-  return hDisplay + mDisplay + sDisplay;
+  if (showSeconds) {
+    return hDisplay + mDisplay + sDisplay;
+  } else {
+    return hDisplay + mDisplay;
+  }
 }
 
 function wordToUpperCase(word) {
