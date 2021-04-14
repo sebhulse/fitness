@@ -269,7 +269,13 @@ function generateWorkout(
   let created = new Date();
 
   let body = {
-    parameters: [parseInt(duration), typeIn, areaIn, levelIn, created],
+    parameters: {
+      duration: parseInt(duration),
+      type: typeIn,
+      area: areaIn,
+      level: levelIn,
+      time: created
+    },
     warmup: warmup,
     workout: workout,
     finisher: finisher,

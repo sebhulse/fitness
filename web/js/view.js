@@ -50,17 +50,23 @@ function getParameters() {
 
 // create accordion element
 async function buildAccordion(jsonWorkout) {
+  // console.log(typeof jsonWorkout);
+  if (typeof jsonWorkout === "object") {
+    console.log("input is an object");
+  } else {
+    jsonWorkout = JSON.parse(jsonWorkout);
+    console.log(jsonWorkout);
+  }
 
   // clear accordionPlaceholder before building
-  const accordionPlaceholder = document.querySelector('#accordionPlaceholder');
+  const accordionPlaceholder = document.querySelector("#accordionPlaceholder");
   if (accordionPlaceholder) {
     removeAllChildNodes(accordionPlaceholder);
   }
-
   // for each section in the whole json (warmup, cooldown etc), create the body text
   Object.keys(jsonWorkout).forEach(function(key) {
     if (key != "parameters") {
-      let name = key.charAt(0).toUpperCase() + key.slice(1);
+      let name = wordToUpperCase(key);
 
       let ul = document.createElement("ul");
       ul.className = "list-group list-group-flush";
@@ -78,7 +84,6 @@ async function buildAccordion(jsonWorkout) {
 
         // checks if there's an array and if so, loops through the array to display exercises
         if (typeof exercise !== "undefined") {
-
           let bodyListItem = document.createElement("li");
           bodyListItem.className =
             "list-group-item d-flex justify-content-between";
@@ -93,7 +98,6 @@ async function buildAccordion(jsonWorkout) {
           bodyListItem.appendChild(durationSmall);
 
           ul.appendChild(bodyListItem);
-
         } else {
           let exerciseArray = jsonWorkout[key][key1];
           for (var i = 0; i < exerciseArray.length; i++) {
@@ -149,17 +153,17 @@ async function buildAccordion(jsonWorkout) {
       accordionDiv2.setAttribute("data-bs-parent", "#accordionPlaceholder");
 
       let accordionDiv3 = document.createElement("div");
-      accordionDiv3.className = "accordion-body col-md-8 mx-auto";
-
+      accordionDiv3.className = "accordion-body";
 
       accordionDiv.appendChild(accordionHeader);
       accordionHeader.appendChild(accordionButton);
       accordionDiv.appendChild(accordionDiv2);
       accordionDiv2.appendChild(accordionDiv3);
       accordionDiv3.appendChild(ul);
-      console.log(accordionDiv);
 
-      let accordionPlaceholder = document.getElementById("accordionPlaceholder");
+      let accordionPlaceholder = document.getElementById(
+        "accordionPlaceholder"
+      );
       accordionPlaceholder.appendChild(accordionDiv);
     }
   });
@@ -179,29 +183,69 @@ function buildHistory() {
 
   for (var i = 0; i < keys.length; i++) {
     let key = keys[i];
+    let data = sessionStorage.getItem(i + 1);
+    let jsonData = JSON.parse(data);
+    let parameters = jsonData.parameters;
+    console.log(parameters);
+
+    let time = Date.parse(parameters.time);
+    let timeNow = Date.now();
+    let timeDifferenceS = Math.round((timeNow - time) / 1000);
+    let hrsminse = secondsToHms(timeDifferenceS);
+
     let histButton = document.createElement("button");
+    histButton.setAttribute(
+      "onclick",
+      `buildAccordion(${JSON.stringify(jsonData)})`
+    );
     histButton.type = "button";
     histButton.className = "list-group-item list-group-item-action";
     histButton.id = `histButton${i}`;
 
     let histInnerDiv = document.createElement("div");
-    histInnerDiv.className = "fw-bold";
+    histInnerDiv.className = "d-flex justify-content-between";
     histInnerDiv.innerHTML = `Workout ${key}`;
     histInnerDiv.id = `histInnerDiv${i}`;
 
-    let histDiv = document.createElement("div");
-    histDiv.className = "ms-2 me-auto";
-    histDiv.id = `histDiv${i}`;
-    histDiv.innerHTML = "Parameters";
+    let histInnerSmall = document.createElement("small");
+    histInnerSmall.className = "text-muted";
+    histInnerSmall.innerHTML = `Created ${hrsminse} ago`;
+    histInnerSmall.id = "histInnerSmall";
 
+    let histDiv = document.createElement("div");
+    histDiv.className = "ms-2 me-auto text-muted";
+    histDiv.id = `histDiv${i}`;
+    histDiv.innerHTML = `${parameters.duration} mins | ${wordToUpperCase(
+      parameters.type
+    )} | ${wordToUpperCase(parameters.area)} | ${wordToUpperCase(
+      parameters.level
+    )}`;
     histButton.appendChild(histInnerDiv);
     histButton.appendChild(histDiv);
+    histInnerDiv.appendChild(histInnerSmall);
 
     document
       .getElementById("listHistoryPlaceholder")
       .appendChild(ol)
       .appendChild(histButton);
   }
+}
+
+function secondsToHms(d) {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor((d % 3600) / 60);
+  var s = Math.floor((d % 3600) % 60);
+
+  var hDisplay = h > 0 ? h + "h, " : "";
+  var mDisplay = m > 0 ? m + "m, " : "";
+  var sDisplay = s > 0 ? s + "s" : "0s";
+  return hDisplay + mDisplay + sDisplay;
+}
+
+function wordToUpperCase(word) {
+  let wordUpper = word.charAt(0).toUpperCase() + word.slice(1);
+  return wordUpper;
 }
 
 // removes all child nodes of a given element
