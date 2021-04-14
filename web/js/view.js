@@ -48,12 +48,36 @@ async function buildAccordion(jsonWorkout) {
   if (typeof jsonWorkout !== "object") {
     jsonWorkout = JSON.parse(jsonWorkout);
   }
+  parameters = jsonWorkout.parameters;
+  console.log(parameters);
 
   // clear accordionPlaceholder before building
   const accordionPlaceholder = document.querySelector("#accordionPlaceholder");
   if (accordionPlaceholder) {
     removeAllChildNodes(accordionPlaceholder);
   }
+  // build parameters section
+  let accordionOverallDiv = document.createElement("div");
+  accordionOverallDiv.className = "container";
+  accordionOverallDiv.id = "accordionOverallDiv";
+
+  let parametersContainer = document.createElement("div");
+  parametersContainer.className = "container";
+  parametersContainer.id = "parametersContainer";
+
+  let parametersLevel = document.createElement("p");
+  // parametersContainer.className = "container";
+  parametersLevel.id = "parametersContainer";
+  parametersLevel.innerHTML = `Duration: ${
+    parameters.duration
+  }m | Type: ${wordToUpperCase(parameters.type)} | Area: ${wordToUpperCase(
+    parameters.area
+  )} | Level: ${wordToUpperCase(parameters.level)}`;
+
+  accordionPlaceholder.appendChild(accordionOverallDiv);
+  accordionOverallDiv.appendChild(parametersContainer);
+  parametersContainer.appendChild(parametersLevel);
+
   // for each section in the whole json (warmup, cooldown etc), create the body text
   Object.keys(jsonWorkout).forEach(function(key) {
     if (key != "parameters") {
@@ -62,6 +86,7 @@ async function buildAccordion(jsonWorkout) {
       let ul = document.createElement("ul");
       ul.className = "list-group list-group-flush";
       ul.id = "listContainerWorkout";
+
       let innerSectionLength = 0;
 
       // for each exercises 'blob' section in each section
@@ -78,7 +103,6 @@ async function buildAccordion(jsonWorkout) {
         // checks if there's an array and if so, loops through the array to display exercises
         if (typeof exercise !== "undefined") {
           innerSectionLength += durationWC;
-          console.log(innerSectionLength);
           let bodyListItem = document.createElement("li");
           bodyListItem.className =
             "list-group-item d-flex justify-content-between";
@@ -104,7 +128,6 @@ async function buildAccordion(jsonWorkout) {
             }
             let exDuration = exerciseArray[i].duration;
             innerSectionLength += exDuration;
-            console.log(innerSectionLength);
 
             let bodyListItem2 = document.createElement("li");
             bodyListItem2.className =
@@ -123,9 +146,7 @@ async function buildAccordion(jsonWorkout) {
           }
         }
       });
-      let stringSectionTime = secondsToHms(innerSectionLength)
-      console.log("seconds " + stringSectionTime);
-
+      let stringSectionTime = secondsToHms(innerSectionLength);
       let iterator = `iterator${key}`;
 
       let accordionDiv = document.createElement("div");
@@ -137,23 +158,23 @@ async function buildAccordion(jsonWorkout) {
       accordionHeader.id = "headingOne";
 
       let accordionButton = document.createElement("button");
-      accordionButton.className = "accordion-button collapsed";
+      if (key === "warmup") {
+        accordionButton.className = "accordion-button show";
+      } else {
+        accordionButton.className = "accordion-button collapsed";
+      }
       accordionButton.type = "button";
       accordionButton.setAttribute("data-bs-toggle", "collapse");
       accordionButton.setAttribute("data-bs-target", `#${iterator}`);
-      accordionButton.setAttribute("aria-expanded", "true");
       accordionButton.setAttribute("aria-controls", iterator);
       accordionButton.innerHTML = `${name} | ${stringSectionTime}`;
 
-      // let accordionSmall = document.createElement("span");
-      // accordionSmall.className = "badge bg-primary rounded-pill";
-      // accordionSmall.id = "accordionSmall";
-      // accordionSmall.innerHTML = "1m 30s";
-      // accordionSmall.setAttribute("aria-labelledby", "headingOne");
-      // accordionSmall.setAttribute("data-bs-parent", "#accordionPlaceholder");
-
       let accordionDiv2 = document.createElement("div");
-      accordionDiv2.className = "accordion-collapse collapse";
+      if (key === "warmup") {
+        accordionDiv2.className = "accordion-collapse collapse show";
+      } else {
+        accordionDiv2.className = "accordion-collapse collapse";
+      }
       accordionDiv2.id = iterator;
       accordionDiv2.setAttribute("aria-labelledby", "headingOne");
       accordionDiv2.setAttribute("data-bs-parent", "#accordionPlaceholder");
@@ -166,11 +187,7 @@ async function buildAccordion(jsonWorkout) {
       accordionDiv.appendChild(accordionDiv2);
       accordionDiv2.appendChild(accordionDiv3);
       accordionDiv3.appendChild(ul);
-      // accordionButton.appendChild(accordionSmall)
 
-      let accordionPlaceholder = document.getElementById(
-        "accordionPlaceholder"
-      );
       accordionPlaceholder.appendChild(accordionDiv);
     }
   });
@@ -226,7 +243,7 @@ function buildHistory() {
     histInnerDiv.id = `histInnerDiv${i + 1}`;
 
     let histInnerSmall = document.createElement("small");
-    histInnerSmall.innerHTML = `Created ${hrsminse} ago`;
+    histInnerSmall.innerHTML = `${hrsminse} ago`;
     histInnerSmall.id = "histInnerSmall";
 
     let histDiv = document.createElement("small");
@@ -254,9 +271,9 @@ function clearHistory() {
 }
 
 function secondsToHms(d) {
-  let showSeconds = true
-  if ((d % 60 === 0) && d !== 0) {
-    showSeconds = false
+  let showSeconds = true;
+  if (d % 60 === 0 && d !== 0) {
+    showSeconds = false;
   }
 
   d = Number(d);
