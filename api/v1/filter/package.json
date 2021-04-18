@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "fitness-v1-filter",
+  "version": "1.0.0",
+  "description": "Filter the bodyweight-exercises.json to extract relevant exercises based on input parameters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,css,json,md}'"
+  },
+  "author": "Sebastian Hulse",
+  "license": "CC BY 4.0",
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}

@@ -16,10 +16,10 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           environment: "production"
-          workingDirectory: "../../api/v1/filter"
+          workingDirectory: "api/v1/filter"
       - name: Publish Workout
         uses: cloudflare/wrangler-action@1.3.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           environment: "production"
-          workingDirectory: "../../api/v1/workout"
+          workingDirectory: "api/v1/workout"
