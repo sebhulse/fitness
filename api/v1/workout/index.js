@@ -275,6 +275,7 @@ function generateWorkout(
     rest,
   )
   let created = new Date()
+  created = created.toISOString()
 
   let body = {
     parameters: {
