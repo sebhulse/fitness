@@ -1,33 +1,20 @@
-// this takes the query string parameters and sends them to the workout generator function (refresh will create new workout)
+// this takes the query string parameters and sends them to the workout generator function (refresh will also create new workout)
 async function viewPageLoad() {
   parameters = getParameters();
-  // let response = await handleRequest(
-  //   parameters.duration,
-  //   parameters.type,
-  //   parameters.area,
-  //   parameters.level
-  // );
-  // const init = {
-  //   status: 200,
-  //   headers: {
-  //     "content-type": "application/json;charset=UTF-8",
-  //     "Access-Control-Allow-Origin": "*",
-  //   },
-  // };
   const url = `https://api.sebhulse.com/v1/workout/?type=${parameters.type}&area=${parameters.area}&level=${parameters.level}&duration=${parameters.duration}`
   let response = await fetch(url)
-  console.log(response);
+  let jsonResp = await response.json()
   let noStoredItems = sessionStorage.length + 1;
-  // let resString = JSON.stringify(response);
-  sessionStorage.setItem(noStoredItems, response);
+  let resString = JSON.stringify(jsonResp);
+  sessionStorage.setItem(noStoredItems, resString);
 
-  buildAccordion(response);
+  buildAccordion(jsonResp);
   buildHistory();
 }
 
+// get form parameters and send to index.html with string query
 function changeOptions() {
   parameters = getParameters();
-  // send form parameters to index.html with string query
   var url =
     "index.html?type=" +
     encodeURIComponent(parameters.type) +
@@ -275,11 +262,13 @@ function buildHistory() {
   }
 }
 
+// clear sessionStorage
 function clearHistory() {
   window.sessionStorage.clear();
   viewPageLoad();
 }
 
+// convert seconds to Hours Mins Seconds
 function secondsToHms(d) {
   let showSeconds = true;
   if (d % 60 === 0 && d !== 0) {
@@ -301,6 +290,7 @@ function secondsToHms(d) {
   }
 }
 
+// first letter of string to uppercase
 function wordToUpperCase(word) {
   let wordUpper = word.charAt(0).toUpperCase() + word.slice(1);
   return wordUpper;
