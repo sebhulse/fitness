@@ -46,7 +46,6 @@ async function buildAccordion(jsonWorkout) {
     jsonWorkout = JSON.parse(jsonWorkout);
   }
   parameters = jsonWorkout.parameters;
-  console.log(parameters);
 
   // clear accordionPlaceholder before building
   const accordionPlaceholder = document.querySelector("#accordionPlaceholder");
