@@ -1,15 +1,25 @@
 // this takes the query string parameters and sends them to the workout generator function (refresh will create new workout)
 async function viewPageLoad() {
   parameters = getParameters();
-  let response = await handleRequest(
-    parameters.duration,
-    parameters.type,
-    parameters.area,
-    parameters.level
-  );
+  // let response = await handleRequest(
+  //   parameters.duration,
+  //   parameters.type,
+  //   parameters.area,
+  //   parameters.level
+  // );
+  // const init = {
+  //   status: 200,
+  //   headers: {
+  //     "content-type": "application/json;charset=UTF-8",
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  // };
+  const url = `https://api.sebhulse.com/v1/workout/?type=${parameters.type}&area=${parameters.area}&level=${parameters.level}&duration=${parameters.duration}`
+  let response = await fetch(url)
+  console.log(response);
   let noStoredItems = sessionStorage.length + 1;
-  let resString = JSON.stringify(response);
-  sessionStorage.setItem(noStoredItems, resString);
+  // let resString = JSON.stringify(response);
+  sessionStorage.setItem(noStoredItems, response);
 
   buildAccordion(response);
   buildHistory();

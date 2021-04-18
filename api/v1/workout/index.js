@@ -293,6 +293,13 @@ function generateWorkout(
 }
 
 async function handleRequest(request) {
+  const init = {
+    status: 200,
+    headers: {
+      "content-type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
   const {
     searchParams
   } = new URL(request.url)
@@ -330,7 +337,7 @@ async function handleRequest(request) {
 
   let generatedWorkout1 = JSON.stringify(generatedWorkout)
 
-  return new Response(generatedWorkout1)
+  return new Response(generatedWorkout1, init)
 }
 
 addEventListener('fetch', (event) => {
