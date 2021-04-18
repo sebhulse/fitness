@@ -304,7 +304,7 @@ async function handleRequest(request) {
   durationIn = parseInt(durationIn)
   let duration = durationIn * 60
 
-  const url = `https://api.sebhulse.com/v1/filter/?type=${typeIn}&level=${levelIn}&area=${areaIn}`
+  const url = `https://fitness-v1-filter-production.seb-hulse.workers.dev/?type=${typeIn}&level=${levelIn}&area=${areaIn}`
 
   const response = await fetch(url)
   const results = await gatherResponse(response)
