@@ -1,0 +1,6 @@
+name = "fitness-v1-workout"
+type = "webpack"
+account_id = "4c448e4e7e10a264a60f04fd1aaef034"
+[env.production]
+route = "api.sebhulse.com/v1/workout/*"
+zone_id = "7c22567cca4b56700d5293cd1db76334"
