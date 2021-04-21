@@ -9,8 +9,5 @@
     "format": "prettier --write '**/*.{js,css,json,md}'"
   },
   "author": "Sebastian Hulse",
-  "license": "CC BY 4.0",
-  "devDependencies": {
-    "prettier": "^1.18.2"
-  }
+  "license": "CC BY 4.0"
 }

@@ -3,5 +3,5 @@ type = "webpack"
 account_id = "4c448e4e7e10a264a60f04fd1aaef034"
 [env.production]
 workers_dev = true
-route = "api.sebhulse.com/v1/filter/*"
+# route = "api.sebhulse.com/v1/filter/*"
 zone_id = "7c22567cca4b56700d5293cd1db76334"
