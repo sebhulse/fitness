@@ -77,7 +77,7 @@ function generateFunWorkoutSection(sectionDurationIn, exercisesIn, rest) {
     };
     currentDuration += bodyDuration;
     if (currentDuration >= sectionDurationIn) {
-      activityBody.rest = 0;
+      activityBody.re = 0;
       activitySection.push(activityBody);
     } else {
       activitySection.push(activityBody);
@@ -252,7 +252,9 @@ async function handleRequest(request) {
       "Access-Control-Allow-Origin": "*",
     },
   };
-  const { searchParams } = new URL(request.url);
+  const {
+    searchParams
+  } = new URL(request.url);
   let typeIn = searchParams.get("type");
   let levelIn = searchParams.get("level");
   let areaIn = searchParams.get("area");
