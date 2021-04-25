@@ -1,11 +1,19 @@
+const dropletIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-droplet" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M7.21.8C7.69.295 8 0 8 0c.109.363.234.708.371 1.038.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8zm.413 1.021A31.25 31.25 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"/>
+  <path fill-rule="evenodd" d="M4.553 7.776c.82-1.641 1.717-2.753 2.093-3.13l.708.708c-.29.29-1.128 1.311-1.907 2.87l-.894-.448z"/>
+</svg>`;
 // this takes the query string parameters and sends them to the workout generator function (refresh will also create new workout)
 async function viewPageLoad() {
   parameters = getParameters();
-  const url = `https://api.sebhulse.com/v1/workout/?type=${parameters.type}&area=${parameters.area}&level=${parameters.level}&duration=${parameters.duration}`
-  let response = await fetch(url)
-  let jsonResp = await response.json()
-  let noStoredItems = sessionStorage.length + 1;
+  const url = `https://api.sebhulse.com/v1/workout/?type=${parameters.type}&area=${parameters.area}&level=${parameters.level}&duration=${parameters.duration}`;
+  let response = await fetch(url);
+  let jsonResp = await response.json();
+  // let identifier = Math.random() * 1001;
+  //
+  // jsonResp.id = identifier;
+  let noStoredItems = sessionStorage.length;
   let resString = JSON.stringify(jsonResp);
+
   sessionStorage.setItem(noStoredItems, resString);
 
   buildAccordion(jsonResp);
@@ -62,7 +70,6 @@ async function buildAccordion(jsonWorkout) {
   parametersContainer.id = "parametersContainer";
 
   let parametersLevel = document.createElement("p");
-  // parametersContainer.className = "container";
   parametersLevel.id = "parametersContainer";
   parametersLevel.innerHTML = `Duration: ${
     parameters.duration
@@ -87,60 +94,31 @@ async function buildAccordion(jsonWorkout) {
 
       // for each exercises 'blob' section in each section
       Object.keys(jsonWorkout[key]).forEach(function(key1) {
-        let exercise = jsonWorkout[key][key1]["exercise"];
-        let durationWC = jsonWorkout[key][key1]["duration"];
+        let exercise = jsonWorkout[key][key1]["ex"];
+        let durationWC = jsonWorkout[key][key1]["du"];
+        let restWC = jsonWorkout[key][key1]["re"];
 
-        if (exercise === "rest") {
-          exercise = "Rest";
-        } else if (exercise === "transition") {
-          exercise = "Section Transition";
+        if (exercise === "transition") {
+          exercise = dropletIcon;
         }
 
-        // checks if there's an array and if so, loops through the array to display exercises
-        if (typeof exercise !== "undefined") {
-          innerSectionLength += durationWC;
-          let bodyListItem = document.createElement("li");
-          bodyListItem.className =
-            "list-group-item d-flex justify-content-between";
-          bodyListItem.innerHTML = `${exercise}`;
-          bodyListItem.id = "bodyListItem";
+        innerSectionLength += durationWC;
 
-          let durationSmall = document.createElement("small");
-          durationSmall.className = "text-secondary";
-          durationSmall.innerHTML = `${durationWC}s`;
-          durationSmall.id = "durationSmall";
+        let bodyListItem = document.createElement("li");
+        bodyListItem.className =
+          "list-group-item d-flex justify-content-between";
+        bodyListItem.innerHTML = `${exercise}`;
+        bodyListItem.id = "bodyListItem";
 
-          bodyListItem.appendChild(durationSmall);
+        let durationSmall = document.createElement("small");
+        durationSmall.className = "text-secondary";
+        durationSmall.innerHTML = restWC ?
+          `${durationWC}s | Rest ${restWC}` :
+          `${durationWC}s`;
+        durationSmall.id = "durationSmall";
 
-          ul.appendChild(bodyListItem);
-        } else {
-          let exerciseArray = jsonWorkout[key][key1];
-          for (var i = 0; i < exerciseArray.length; i++) {
-            let arrayExercise = exerciseArray[i].exercise;
-            if (arrayExercise === "rest") {
-              arrayExercise = "Rest";
-            } else if (arrayExercise === "transition") {
-              arrayExercise = "Section Transition";
-            }
-            let exDuration = exerciseArray[i].duration;
-            innerSectionLength += exDuration;
-
-            let bodyListItem2 = document.createElement("li");
-            bodyListItem2.className =
-              "list-group-item d-flex justify-content-between";
-            bodyListItem2.innerHTML = `${arrayExercise}`;
-            bodyListItem2.id = "bodyListItem2";
-
-            let durationSmall2 = document.createElement("small");
-            durationSmall2.className = "text-secondary";
-            durationSmall2.innerHTML = `${exDuration}s`;
-            durationSmall2.id = "durationSmall2";
-
-            bodyListItem2.appendChild(durationSmall2);
-
-            ul.appendChild(bodyListItem2);
-          }
-        }
+        bodyListItem.appendChild(durationSmall);
+        ul.appendChild(bodyListItem);
       });
       let stringSectionTime = secondsToHms(innerSectionLength);
       let iterator = `iterator${key}`;
@@ -164,7 +142,6 @@ async function buildAccordion(jsonWorkout) {
       accordionButton.setAttribute("data-bs-target", `#${iterator}`);
       accordionButton.setAttribute("aria-controls", iterator);
       accordionButton.innerHTML = `${name} | ${stringSectionTime}`;
-
       let accordionDiv2 = document.createElement("div");
       if (key === "warmup") {
         accordionDiv2.className = "accordion-collapse collapse show";
@@ -211,8 +188,14 @@ function buildHistory() {
 
   for (var i = 0; i < keys.length; i++) {
     let key = keys[i];
-    let data = sessionStorage.getItem(i + 1);
+    console.log(key);
+    let data = sessionStorage.getItem(key);
+    console.log(data);
+    if (!data) {
+      continue;
+    }
     let jsonData = JSON.parse(data);
+
     let parameters = jsonData.parameters;
 
     let time = Date.parse(parameters.time);
@@ -225,7 +208,7 @@ function buildHistory() {
       "onclick",
       `buildAccordion(${JSON.stringify(jsonData)})`
     );
-    histButton.id = `histButton${i + 1}`;
+    histButton.id = `histButton${i}`;
     histButton.setAttribute("data-bs-toggle", "list");
     if (i === keys.length - 1) {
       histButton.className = "list-group-item list-group-item-action active";
@@ -236,23 +219,31 @@ function buildHistory() {
     let histInnerDiv = document.createElement("div");
     histInnerDiv.className = "d-flex justify-content-between";
     histInnerDiv.innerHTML = `Workout ${key}`;
-    histInnerDiv.id = `histInnerDiv${i + 1}`;
+    histInnerDiv.id = `histInnerDiv${i}`;
 
-    let histInnerSmall = document.createElement("small");
+    // let closeButton = document.createElement("button");
+    // closeButton.type = "button";
+    // closeButton.className = "btn-close btn-close-white";
+    // closeButton.setAttribute("aria-label", "Close");
+    // closeButton.id = `${i}`;
+    // closeButton.setAttribute("onclick", `deleteHistItem(${i})`);
+
+    let histInnerSmall = document.createElement("div");
     histInnerSmall.innerHTML = `${hrsminse} ago`;
     histInnerSmall.id = "histInnerSmall";
 
-    let histDiv = document.createElement("small");
-    histDiv.className = "ms-2 me-auto";
-    histDiv.id = `histDiv${i + 1}`;
-    histDiv.innerHTML = `${parameters.duration} mins | ${wordToUpperCase(
+    let histSmall = document.createElement("small");
+    histSmall.className = "ms-2 me-auto d-flex justify-content-between";
+    histSmall.id = `histDiv${i}`;
+    histSmall.innerHTML = `${parameters.duration} mins | ${wordToUpperCase(
       parameters.type
     )} | ${wordToUpperCase(parameters.area)} | ${wordToUpperCase(
       parameters.level
     )}`;
     histButton.appendChild(histInnerDiv);
-    histButton.appendChild(histDiv);
-    histInnerDiv.appendChild(histInnerSmall);
+    histButton.appendChild(histSmall);
+    // histInnerDiv.appendChild(closeButton);
+    histSmall.appendChild(histInnerSmall);
 
     document
       .getElementById("listHistoryPlaceholder")
@@ -260,6 +251,11 @@ function buildHistory() {
       .appendChild(histButton);
   }
 }
+
+// function deleteHistItem(i) {
+//   window.sessionStorage.removeItem(i);
+//   buildHistory();
+// }
 
 // clear sessionStorage
 function clearHistory() {
@@ -289,10 +285,10 @@ function secondsToHms(d) {
   }
 }
 
-// first letter of string to uppercase
+// first letter of string to uppercase and insert spaces between lower case letters and numbers
 function wordToUpperCase(word) {
   let wordUpper = word.charAt(0).toUpperCase() + word.slice(1);
-  return wordUpper;
+  return wordUpper.replace(/([a-z])([0-9])/g, "$1 $2");
 }
 
 // removes all child nodes of a given element
