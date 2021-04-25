@@ -45,17 +45,13 @@ function getNumWorkoutSections(workoutDuration) {
 
 // get a new unique exercise from usedExercises and (available) exercisesIn
 function getNewUniqueExercise(usedExercises, exercisesIn) {
-  // console.log("unique exercise - used exercises: " + usedExercises.length);
-  // console.log("unique exercise - exercises in: " + exercisesIn.length);
   let activity, number
   if (usedExercises.length >= exercisesIn.length) {
     number = getRandomInt(0, usedExercises.length - 1)
     activity = usedExercises[number]
-    // console.log("generated from used exercises");
   } else {
     do {
       number = getRandomInt(0, exercisesIn.length - 1)
-      // console.log(number);
       activity = exercisesIn[number]
     } while (usedExercises.indexOf(activity) >= 0)
   }
