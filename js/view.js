@@ -188,9 +188,7 @@ function buildHistory() {
 
   for (var i = 0; i < keys.length; i++) {
     let key = keys[i];
-    console.log(key);
     let data = sessionStorage.getItem(key);
-    console.log(data);
     if (!data) {
       continue;
     }
