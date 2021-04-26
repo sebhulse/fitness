@@ -60,20 +60,19 @@ function getNewUniqueExercise(usedExercises, exercisesIn) {
 
 // strength or cardio
 function generateFunWorkoutSection(sectionDurationIn, exercisesIn, rest) {
-  let restAfterExercise = rest[0];
-  let exerciseDur = rest[1];
-  let transitionRest = rest[2];
-  let bodyDuration = exerciseDur + restAfterExercise;
+  let restDur = rest[0]
+  let exDur = rest[1]
+  let transiDur = rest[2]
+  let bodyDuration = exDur + restDur;
   let currentDuration = 0;
   let activitySection = [];
-
   do {
     let exercise = getNewUniqueExercise(usedWorkoutExercises, exercisesIn);
     usedWorkoutExercises.push(exercise);
     activityBody = {
       ex: exercise,
-      du: exerciseDur,
-      re: restAfterExercise,
+      du: exDur,
+      re: restDur,
     };
     currentDuration += bodyDuration;
     if (currentDuration >= sectionDurationIn) {
@@ -83,12 +82,59 @@ function generateFunWorkoutSection(sectionDurationIn, exercisesIn, rest) {
       activitySection.push(activityBody);
     }
   } while (currentDuration < sectionDurationIn);
-
   transitionBody = {
     ex: "transition",
-    du: transitionRest,
+    du: transiDur,
   };
+  activitySection.push(transitionBody);
+  return activitySection;
+}
 
+// strength
+function generatePyramidsWorkoutSection(sectionDurationIn, exercisesIn, rest) {
+  let restDur = rest[0]
+  let exDur, exercise, bodyDuration;
+  let transiDur = rest[2]
+  let currentDuration = 0;
+  let pyramidsExercises = [];
+  let i = 0;
+  let exerciseNumber = 0;
+  let activitySection = [];
+  do {
+    if (i % 3 === 0) {
+      exercise = getNewUniqueExercise(usedWorkoutExercises, exercisesIn);
+      usedWorkoutExercises.push(exercise);
+      pyramidsExercises.push(exercise)
+      exerciseNumber++
+    } else {
+      exercise = pyramidsExercises[exerciseNumber - 1]
+    }
+    if (i % 3 === 0) {
+      exDur = rest[1] * 0.5
+    } else if (i % 3 === 1) {
+      exDur = rest[1]
+    } else {
+      exDur = rest[1] * 1.5
+    }
+    activityBody = {
+      ex: exercise,
+      du: exDur,
+      re: restDur,
+    };
+    bodyDuration = exDur + restDur;
+    currentDuration += bodyDuration;
+    if (currentDuration >= sectionDurationIn) {
+      activityBody.re = 0;
+      activitySection.push(activityBody);
+    } else {
+      activitySection.push(activityBody);
+    }
+    i++
+  } while (currentDuration < sectionDurationIn);
+  transitionBody = {
+    ex: "transition",
+    du: transiDur,
+  };
   activitySection.push(transitionBody);
   return activitySection;
 }
@@ -123,11 +169,8 @@ function generateFinisherSection(finisherDuration, rest) {
   return activitySection;
 }
 
-// strength
+//strength
 function generateSupersetsWorkoutSection() {}
-
-// strength
-function generatePyramidsWorkoutSection() {}
 
 // strength
 function generateRevPyramidsWorkoutSection() {}
@@ -139,25 +182,39 @@ function generateIntervalsWorkoutSection() {}
 function generateIntervalsWorkoutSection() {}
 
 // takes sectionDuration, exercises array, numWorkoutSections and rest array, chooses workout type, generates main body of workout and returns json
-function generateWorkoutSection(
+function generateWorkoutSections(
   workoutDuration,
   workoutExercisesIn,
   numWorkoutSections,
   rest
 ) {
-  let workoutType;
   let workoutSectionDuration = workoutDuration / numWorkoutSections;
   let activitySection = {};
-
+  let counter = {
+    pyramids: 0,
+    fun: 0
+  }
   for (var i = 0; i < numWorkoutSections; i++) {
-    let workoutSection = generateFunWorkoutSection(
-      workoutSectionDuration,
-      workoutExercisesIn,
-      rest
-    );
-    let nameOfSection = `fun${i + 1}`;
-
-    activitySection[`${nameOfSection}`] = workoutSection;
+    randNum = getRandomInt(0, 1)
+    if (randNum === 0) {
+      let workoutSection = generatePyramidsWorkoutSection(
+        workoutSectionDuration,
+        workoutExercisesIn,
+        rest
+      );
+      let nameOfSection = `pyramids${counter.pyramids + 1}`;
+      activitySection[`${nameOfSection}`] = workoutSection;
+      counter.pyramids++
+    } else if (randNum === 1) {
+      let workoutSection = generateFunWorkoutSection(
+        workoutSectionDuration,
+        workoutExercisesIn,
+        rest
+      );
+      let nameOfSection = `fun${counter.fun + 1}`;
+      activitySection[`${nameOfSection}`] = workoutSection;
+      counter.fun++
+    }
   }
   return activitySection;
 }
@@ -219,7 +276,7 @@ function generateWorkout(
     section,
     rest
   );
-  let workout = generateWorkoutSection(
+  let workout = generateWorkoutSections(
     workoutDuration,
     workoutExercisesIn,
     numWorkoutSections,
@@ -233,7 +290,6 @@ function generateWorkout(
     section,
     rest
   );
-  console.log(workout);
 
   let body = {
     warmup: warmup,
