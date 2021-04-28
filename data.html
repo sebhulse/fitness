@@ -60,24 +60,23 @@
 </body>
 
 <body>
-  <div class="row justify-content-center">
-    <div class="col-md-6 text-justify" accesskey="">
-      <div class="page-body">
-        <header>
-          <h2 class="page-title">Data</h2>
-        </header>
-        <p id="2b6757d9-9691-4297-846b-72aaf8f20839" class="">This tool is built on an <strong>open-source</strong> JSON dataset for bodyweight exercises and is hosted at <a
-            href="https://fitness.sebhulse.com/data/bodyweight-exercises.json">fitness.sebhulse.com/data/bodyweight-exercises.json</a>. Please feel free to use it in your own projects under the CC BY 4.0 license.</p>
-        <p id="2f10e4e4-9480-45df-8474-9fa0fc646c40" class=""><strong>Contribution to this dataset is encouraged by writing informative descriptions for each of the exercises in the database! People with personal training fitness qualifications and
-            industry knowledge are preferred for this purpose.</strong></p>
-        <p id="d6f29ba4-392c-4ea9-9e57-1fdec579f831" class="">There is scope to add to this resource with additional exercises requiring equipment. Please open an issue if you would like to contribute!</p>
-        <p id="0d84d42c-d74a-43b0-9488-13ecee5dbbbf" class="">This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a> (CC BY 4.0).</p>
-        <p id="91b7ac65-1e1d-490e-b9f2-dc2d8ee58421" class="">The data is split into <code>warmup</code>, <code>workout</code> and <code>cooldown</code> exercises and comprises the following keys for each exercise: <code>id</code>,
-          <code>name</code>, <code>description</code>, <code>type</code>, <code>level</code> and <code>area</code>.
-        </p>
-        <p id="ada595e2-0332-4736-bf8a-447ffb24463d" class=""><code>warmup</code> and <code>cooldown</code> exercises do not have <code>type</code> or <code>level</code> keys.</p>
-        <h3 id="3363e3ce-e7f9-4cb7-b013-9f286cfd238e" class="">Example</h3>
-        <pre id="feca75c5-2065-4c4b-901e-85be95c8a4c1" class="code code-wrap"><code>{
+  <div class="container-sm">
+    <div class="page-body">
+      <header>
+        <h2 class="page-title">Data</h2>
+      </header>
+      <p id="2b6757d9-9691-4297-846b-72aaf8f20839" class="">This tool is built on an <strong>open-source</strong> JSON dataset for bodyweight exercises and is hosted at <a
+          href="https://fitness.sebhulse.com/data/bodyweight-exercises.json">fitness.sebhulse.com/data/bodyweight-exercises.json</a>. Please feel free to use it in your own projects under the CC BY 4.0 license.</p>
+      <p id="2f10e4e4-9480-45df-8474-9fa0fc646c40" class=""><strong>Contribution to this dataset is encouraged by writing informative descriptions for each of the exercises in the database! People with personal training fitness qualifications and
+          industry knowledge are preferred for this purpose.</strong></p>
+      <p id="d6f29ba4-392c-4ea9-9e57-1fdec579f831" class="">There is scope to add to this resource with additional exercises requiring equipment. Please open an issue if you would like to contribute!</p>
+      <p id="0d84d42c-d74a-43b0-9488-13ecee5dbbbf" class="">This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a> (CC BY 4.0).</p>
+      <p id="91b7ac65-1e1d-490e-b9f2-dc2d8ee58421" class="">The data is split into <code>warmup</code>, <code>workout</code> and <code>cooldown</code> exercises and comprises the following keys for each exercise: <code>id</code>,
+        <code>name</code>, <code>description</code>, <code>type</code>, <code>level</code> and <code>area</code>.
+      </p>
+      <p id="ada595e2-0332-4736-bf8a-447ffb24463d" class=""><code>warmup</code> and <code>cooldown</code> exercises do not have <code>type</code> or <code>level</code> keys.</p>
+      <h3 id="3363e3ce-e7f9-4cb7-b013-9f286cfd238e" class="">Example</h3>
+      <pre id="feca75c5-2065-4c4b-901e-85be95c8a4c1" class="code code-wrap"><code>{
         &quot;id&quot;: 0,
         &quot;name&quot;: &quot;Squats&quot;,
         &quot;description&quot;: &quot;Place your feet shoulder width apart. With your back straight, squat down and when your quads are parallel with the floor, drive up through your heels to the starting point.&quot;,
@@ -85,35 +84,33 @@
         &quot;level&quot;: [&quot;beginner&quot;, &quot;intermediate&quot;, &quot;advanced&quot;],
         &quot;area&quot;: [&quot;core&quot;, &quot;upper&quot;, &quot;lower&quot;, &quot;full&quot;]
         }</code></pre>
-        <p id="5f030a5e-d14a-4da8-8553-808cc729e6bf" class="">This example shows the default values for the <code>type</code>, <code>level</code> and <code>area</code> keys of the exercise. In the actual dataset, these values for the Squats
-          exercise are deleted as appropriate. The description is provided as a reference for future descriptions in the dataset.</p>
-        <p id="db586e90-7ab4-4498-a57b-8828854b7111" class=""><strong>Where</strong>:</p>
-        <ul id="07f9b670-6e13-429c-b91c-007fde83f120" class="bulleted-list">
-          <li><code>id</code> is the zero-indexed number from the first <code>warmup</code> exercise to the last <code>cooldown</code> exercise.</li>
-        </ul>
-        <ul id="94122a90-0abb-42e5-b34d-033c38ba9c50" class="bulleted-list">
-          <li><code>name</code> is the name of the exercise. Max 50 characters.</li>
-        </ul>
-        <ul id="db03a9aa-3bf4-4cfe-b9eb-9417c8cf8750" class="bulleted-list">
-          <li><code>description</code> is an informative description of the exercise. Max 300 characters.</li>
-        </ul>
-        <ul id="65f62719-5499-4103-92ff-3c0bbf42051e" class="bulleted-list">
-          <li><code>type</code> indicates whether the exercise is suitable for <code>cardio</code> and/or <code>strength</code> workouts. It is an array with <code>cardio</code> and <code>strength</code> as the default values. These are deleted as
-            appropriate for the exercise. </li>
-        </ul>
-        <ul id="bcc44d8e-9c59-4947-8d7d-c1c304ef7af5" class="bulleted-list">
-          <li><code>level</code> indicates whether the level of difficulty of the exercise is <code>beginner</code> and/or <code>intermediate</code> and/or <code>advanced</code>. It is an array with <code>beginner</code>, <code>intermediate</code>
-            and <code>advanced</code> as the default values. These are deleted as appropriate for the exercise. </li>
-        </ul>
-        <ul id="d67536c0-5dc3-444a-bb90-9f42a19ab1ea" class="bulleted-list">
-          <li><code>area</code> indicates the target body area of the exercise. It is an array with <code>core</code>, <code>upper</code>, <code>lower</code> and <code>full</code> as the default values. These are deleted as appropriate for the
-            exercise. </li>
-        </ul>
-        <p id="fdb7397c-2413-44c3-8deb-a54f683a3e9e" class="">For the <code>type</code>, <code>level</code> and <code>area</code> keys, the values are any combination of the default values above, as deemed most appropriate to the exercise.</p>
-        <p id="fd4c7f7b-018b-4e6a-8c78-eebcbfb1c517" class="">See the API section for more information on how to take advantage of this data in a convenient way.</p>
-      </div>
+      <p id="5f030a5e-d14a-4da8-8553-808cc729e6bf" class="">This example shows the default values for the <code>type</code>, <code>level</code> and <code>area</code> keys of the exercise. In the actual dataset, these values for the Squats
+        exercise are deleted as appropriate. The description is provided as a reference for future descriptions in the dataset.</p>
+      <p id="db586e90-7ab4-4498-a57b-8828854b7111" class=""><strong>Where</strong>:</p>
+      <ul id="07f9b670-6e13-429c-b91c-007fde83f120" class="bulleted-list">
+        <li><code>id</code> is the zero-indexed number from the first <code>warmup</code> exercise to the last <code>cooldown</code> exercise.</li>
+      </ul>
+      <ul id="94122a90-0abb-42e5-b34d-033c38ba9c50" class="bulleted-list">
+        <li><code>name</code> is the name of the exercise. Max 50 characters.</li>
+      </ul>
+      <ul id="db03a9aa-3bf4-4cfe-b9eb-9417c8cf8750" class="bulleted-list">
+        <li><code>description</code> is an informative description of the exercise. Max 300 characters.</li>
+      </ul>
+      <ul id="65f62719-5499-4103-92ff-3c0bbf42051e" class="bulleted-list">
+        <li><code>type</code> indicates whether the exercise is suitable for <code>cardio</code> and/or <code>strength</code> workouts. It is an array with <code>cardio</code> and <code>strength</code> as the default values. These are deleted as
+          appropriate for the exercise. </li>
+      </ul>
+      <ul id="bcc44d8e-9c59-4947-8d7d-c1c304ef7af5" class="bulleted-list">
+        <li><code>level</code> indicates whether the level of difficulty of the exercise is <code>beginner</code> and/or <code>intermediate</code> and/or <code>advanced</code>. It is an array with <code>beginner</code>, <code>intermediate</code>
+          and <code>advanced</code> as the default values. These are deleted as appropriate for the exercise. </li>
+      </ul>
+      <ul id="d67536c0-5dc3-444a-bb90-9f42a19ab1ea" class="bulleted-list">
+        <li><code>area</code> indicates the target body area of the exercise. It is an array with <code>core</code>, <code>upper</code>, <code>lower</code> and <code>full</code> as the default values. These are deleted as appropriate for the
+          exercise. </li>
+      </ul>
+      <p id="fdb7397c-2413-44c3-8deb-a54f683a3e9e" class="">For the <code>type</code>, <code>level</code> and <code>area</code> keys, the values are any combination of the default values above, as deemed most appropriate to the exercise.</p>
+      <p id="fd4c7f7b-018b-4e6a-8c78-eebcbfb1c517" class="">See the API section for more information on how to take advantage of this data in a convenient way.</p>
     </div>
-
   </div>
 </body>
 
