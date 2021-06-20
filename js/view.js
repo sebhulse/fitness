@@ -8,9 +8,6 @@ async function viewPageLoad() {
   const url = `https://api.sebhulse.com/v1/workout/?type=${parameters.type}&area=${parameters.area}&level=${parameters.level}&duration=${parameters.duration}`;
   let response = await fetch(url);
   let jsonResp = await response.json();
-  // let identifier = Math.random() * 1001;
-  //
-  // jsonResp.id = identifier;
   let noStoredItems = sessionStorage.length;
   let resString = JSON.stringify(jsonResp);
 
@@ -283,10 +280,10 @@ function secondsToHms(d) {
   }
 }
 
-// first letter of string to uppercase and insert spaces between lower case letters and numbers
+// first letter of string to uppercase and insert spaces between lower case letters, upper case letters and numbers
 function wordToUpperCase(word) {
   let wordUpper = word.charAt(0).toUpperCase() + word.slice(1);
-  return wordUpper.replace(/([a-z])([0-9])/g, "$1 $2");
+  return wordUpper.replace(/([a-z0-9])([A-Z0-9])/g, '$1 $2');
 }
 
 // removes all child nodes of a given element

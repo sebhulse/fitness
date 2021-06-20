@@ -9,6 +9,11 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+// round to nearest multiple of 5
+function roundToFive(roundMe) {
+  return Math.round(roundMe / 5) * 5;
+}
+
 // get rest lengths given the workout type and level - returns rest array in the form [restAfterExercise, exerciseDuration, transitionRest]
 function getRest(type, level) {
   let rest = [];
@@ -110,11 +115,11 @@ function generatePyramidsWorkoutSection(sectionDurationIn, exercisesIn, rest) {
       exercise = pyramidsExercises[exerciseNumber - 1]
     }
     if (i % 3 === 0) {
-      exDur = rest[1] * 0.5
+      exDur = roundToFive(rest[1] * 0.5)
     } else if (i % 3 === 1) {
       exDur = rest[1]
     } else {
-      exDur = rest[1] * 1.5
+      exDur = roundToFive(rest[1] * 1.5)
     }
     activityBody = {
       ex: exercise,
@@ -139,6 +144,93 @@ function generatePyramidsWorkoutSection(sectionDurationIn, exercisesIn, rest) {
   return activitySection;
 }
 
+//strength
+function generateSupersetsWorkoutSection() {}
+
+// strength
+function generateRevPyramidsWorkoutSection(sectionDurationIn, exercisesIn, rest) {
+  let restDur = rest[0]
+  let exDur, exercise, bodyDuration;
+  let transiDur = rest[2]
+  let currentDuration = 0;
+  let pyramidsExercises = [];
+  let i = 0;
+  let exerciseNumber = 0;
+  let activitySection = [];
+  do {
+    if (i % 3 === 0) {
+      exercise = getNewUniqueExercise(usedWorkoutExercises, exercisesIn);
+      usedWorkoutExercises.push(exercise);
+      pyramidsExercises.push(exercise)
+      exerciseNumber++
+    } else {
+      exercise = pyramidsExercises[exerciseNumber - 1]
+    }
+    if (i % 3 === 0) {
+      exDur = roundToFive(rest[1] * 1.5)
+    } else if (i % 3 === 1) {
+      exDur = rest[1]
+    } else {
+      exDur = roundToFive(rest[1] * 0.5)
+    }
+    activityBody = {
+      ex: exercise,
+      du: exDur,
+      re: restDur,
+    };
+    bodyDuration = exDur + restDur;
+    currentDuration += bodyDuration;
+    if (currentDuration >= sectionDurationIn) {
+      activityBody.re = 0;
+      activitySection.push(activityBody);
+    } else {
+      activitySection.push(activityBody);
+    }
+    i++
+  } while (currentDuration < sectionDurationIn);
+  transitionBody = {
+    ex: "transition",
+    du: transiDur,
+  };
+  activitySection.push(transitionBody);
+  return activitySection;
+}
+
+// cardio
+function generateIntervalsWorkoutSection() {}
+
+// cardio
+function generateTabataStyleWorkoutSection(sectionDurationIn, exercisesIn, rest) {
+  let restDur = 10
+  let exDur = 20
+  let transiDur = rest[2]
+  let bodyDuration = exDur + restDur;
+  let currentDuration = 0;
+  let activitySection = [];
+  do {
+    let exercise = getNewUniqueExercise(usedWorkoutExercises, exercisesIn);
+    usedWorkoutExercises.push(exercise);
+    activityBody = {
+      ex: exercise,
+      du: exDur,
+      re: restDur,
+    };
+    currentDuration += bodyDuration;
+    if (currentDuration >= sectionDurationIn) {
+      activityBody.re = 0;
+      activitySection.push(activityBody);
+    } else {
+      activitySection.push(activityBody);
+    }
+  } while (currentDuration < sectionDurationIn);
+  transitionBody = {
+    ex: "transition",
+    du: transiDur,
+  };
+  activitySection.push(transitionBody);
+  return activitySection;
+}
+
 // strength or cardio
 function generateFinisherSection(finisherDuration, rest) {
   let restAfterExercise = rest[0];
@@ -147,7 +239,6 @@ function generateFinisherSection(finisherDuration, rest) {
   let currentDuration = 0;
   let activitySection = [];
   usedExercises = [];
-
   do {
     let exercise = getNewUniqueExercise(usedExercises, usedWorkoutExercises);
     usedExercises.push(exercise);
@@ -155,7 +246,6 @@ function generateFinisherSection(finisherDuration, rest) {
       ex: exercise,
       du: transitionRest,
     };
-
     activitySection.push(activityBody);
     currentDuration += transitionRest;
   } while (currentDuration < finisherDuration);
@@ -163,57 +253,80 @@ function generateFinisherSection(finisherDuration, rest) {
     ex: "transition",
     du: transitionRest,
   };
-
   activitySection.push(transitionBody);
-
   return activitySection;
 }
-
-//strength
-function generateSupersetsWorkoutSection() {}
-
-// strength
-function generateRevPyramidsWorkoutSection() {}
-
-// cardio
-function generateIntervalsWorkoutSection() {}
-
-// cardio
-function generateIntervalsWorkoutSection() {}
 
 // takes sectionDuration, exercises array, numWorkoutSections and rest array, chooses workout type, generates main body of workout and returns json
 function generateWorkoutSections(
   workoutDuration,
   workoutExercisesIn,
   numWorkoutSections,
-  rest
+  rest,
+  typeIn
 ) {
   let workoutSectionDuration = workoutDuration / numWorkoutSections;
   let activitySection = {};
   let counter = {
     pyramids: 0,
-    fun: 0
+    revPyramids: 0,
+    fun: 0,
+    tabataStyle: 0
   }
   for (var i = 0; i < numWorkoutSections; i++) {
-    randNum = getRandomInt(0, 1)
-    if (randNum === 0) {
-      let workoutSection = generatePyramidsWorkoutSection(
-        workoutSectionDuration,
-        workoutExercisesIn,
-        rest
-      );
-      let nameOfSection = `pyramids${counter.pyramids + 1}`;
-      activitySection[`${nameOfSection}`] = workoutSection;
-      counter.pyramids++
-    } else if (randNum === 1) {
-      let workoutSection = generateFunWorkoutSection(
-        workoutSectionDuration,
-        workoutExercisesIn,
-        rest
-      );
-      let nameOfSection = `fun${counter.fun + 1}`;
-      activitySection[`${nameOfSection}`] = workoutSection;
-      counter.fun++
+    if (typeIn === "strength") {
+      randNum = getRandomInt(0, 2)
+      // strength workout options (randomly selected)
+      if (randNum === 0) {
+        let workoutSection = generatePyramidsWorkoutSection(
+          workoutSectionDuration,
+          workoutExercisesIn,
+          rest
+        );
+        let nameOfSection = `pyramids${counter.pyramids + 1}`;
+        activitySection[`${nameOfSection}`] = workoutSection;
+        counter.pyramids++
+      } else if (randNum === 1) {
+        let workoutSection = generateFunWorkoutSection(
+          workoutSectionDuration,
+          workoutExercisesIn,
+          rest
+        );
+        let nameOfSection = `fun${counter.fun + 1}`;
+        activitySection[`${nameOfSection}`] = workoutSection;
+        counter.fun++
+      } else if (randNum === 2) {
+        let workoutSection = generateRevPyramidsWorkoutSection(
+          workoutSectionDuration,
+          workoutExercisesIn,
+          rest
+        );
+        let nameOfSection = `reversePyramids${counter.revPyramids + 1}`;
+        activitySection[`${nameOfSection}`] = workoutSection;
+        counter.revPyramids++
+      }
+    } else if (typeIn === "cardio") {
+      // cardio workout options (randomly selected)
+      randNum = getRandomInt(0, 1)
+      if (randNum === 0) {
+        let workoutSection = generateFunWorkoutSection(
+          workoutSectionDuration,
+          workoutExercisesIn,
+          rest
+        );
+        let nameOfSection = `fun${counter.fun + 1}`;
+        activitySection[`${nameOfSection}`] = workoutSection;
+        counter.fun++
+      } else if (randNum === 1) {
+        let workoutSection = generateTabataStyleWorkoutSection(
+          workoutSectionDuration,
+          workoutExercisesIn,
+          rest
+        );
+        let nameOfSection = `tabataStyle${counter.tabataStyle + 1}`;
+        activitySection[`${nameOfSection}`] = workoutSection;
+        counter.tabataStyle++
+      }
     }
   }
   return activitySection;
@@ -259,7 +372,8 @@ function generateWorkout(
   warmupExercisesIn,
   workoutExercisesIn,
   cooldownExercisesIn,
-  rest
+  rest,
+  typeIn
 ) {
   let warmupDuration = Math.floor(durationIn * 0.1);
   let cooldownDuration = warmupDuration;
@@ -280,7 +394,8 @@ function generateWorkout(
     workoutDuration,
     workoutExercisesIn,
     numWorkoutSections,
-    rest
+    rest,
+    typeIn
   );
   let finisher = generateFinisherSection(finisherDuration, rest);
   section = "cooldown";
@@ -290,7 +405,6 @@ function generateWorkout(
     section,
     rest
   );
-
   let body = {
     warmup: warmup,
     ...workout,
@@ -336,7 +450,8 @@ async function handleRequest(request) {
     warmup_area_exercises,
     workout_exercises,
     cooldown_area_exercises,
-    rest
+    rest,
+    typeIn
   );
 
   let created = new Date();
