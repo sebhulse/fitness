@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Workout Generator - Inspiration for busy people" />
   <meta name="author" content="Seb Hulse" />
-  <meta name="generator" content="Hugo 0.82.0" />
+  <meta name="generator" content="" />
   <title>Fitness</title>
   <link rel="canonical" href="https://sebhulse.com/fitness/web" />
-
-  <script src="js/bootstrap.bundle.min.js"></script>
-
   <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
+  <script src="js/bootstrap.bundle.min.js"></script>
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -21,7 +20,6 @@
       -moz-user-select: none;
       user-select: none;
     }
-
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
@@ -56,26 +54,24 @@
         </ul>
       </header>
     </div>
-
   </main>
 </body>
 
 <body>
-  <div class="container-sm">
-    <header>
-      <h2 class="page-title">Disclaimer</h2>
-    </header>
-    <div class="page-body">
-      <p id="c264bc7e-a4e5-4679-a3f0-e9ff53944ddc" class="">These are computer-generated workouts which have not been approved by any personal trainer or otherwise qualified person, so don&#x27;t take them as gospel and do amend them as you see
-        <em>fit</em> (get it?).
-      </p>
-      <p id="de0088ca-cae2-4e49-a264-2494022e6122" class="">
-      </p>
-    </div>
-  </div>
-
-
+  <div id="content" class="container-sm"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const docs = "docs/DISCLAIMER.md"
+    async function run() {
+      let file = await fetch(docs)
+      let text = await file.text()
+      document.getElementById('content').innerHTML =
+        marked(text);
+      hljs.highlightAll();
+    }
+    run()
+  </script>
 </body>
-
 
 </html>

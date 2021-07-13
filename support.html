@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Workout Generator - Inspiration for busy people" />
   <meta name="author" content="Seb Hulse" />
-  <meta name="generator" content="Hugo 0.82.0" />
+  <meta name="generator" content="" />
   <title>Fitness</title>
   <link rel="canonical" href="https://sebhulse.com/fitness/web" />
-
-  <script src="js/bootstrap.bundle.min.js"></script>
-
   <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
+  <script src="js/bootstrap.bundle.min.js"></script>
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -21,7 +20,6 @@
       -moz-user-select: none;
       user-select: none;
     }
-
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
@@ -56,26 +54,24 @@
         </ul>
       </header>
     </div>
-
   </main>
 </body>
 
 <body>
-  <div class="container-sm">
-    <header>
-      <h2 class="page-title">Support</h2>
-    </header>
-    <div class="page-body">
-      <p id="d64fba49-f15e-4641-899c-1b7d043028f9" class="">This outlines the ways in which you can support, with some insight into future feature expansion.</p>
-      <p id="4b6ba5e1-2aba-45a8-99a6-c8d1c3554c57" class="">See the <a href="https://github.com/sebhulse/fitness">Github repository here</a> for the source code and support options.</p>
-      <p id="fccf295b-69e5-4f9d-9f51-af1f9a5d7197" class="">Please feel free to reach out to me either <a href="https://github.com/sebhulse">on Github</a> or <a href="https://sebhulse.com/#contact">by email</a>.</p>
-      <p id="c4b297e0-f9af-4054-b5ed-1717bfce0578" class="">
-      </p>
-    </div>
-  </div>
-
-
+  <div id="content" class="container-sm"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const docs = "docs/SUPPORT.md"
+    async function run() {
+      let file = await fetch(docs)
+      let text = await file.text()
+      document.getElementById('content').innerHTML =
+        marked(text);
+      hljs.highlightAll();
+    }
+    run()
+  </script>
 </body>
-
 
 </html>

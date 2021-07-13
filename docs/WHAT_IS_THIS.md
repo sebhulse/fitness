@@ -1,8 +1,6 @@
-# WHAT_IS_THIS
+## What is this?
 
-# What is this?
-
-So many buttons and options - what's this all about? 
+So many buttons and options - what's this all about?
 
 ### TL;DR
 
@@ -10,17 +8,17 @@ Algorithmically generated random-ish workouts based on input options. Everything
 
 ### Get Started
 
-Hi, welcome! 
+Hi, welcome!
 
-You've stumbled across an algorithmic workout generator - lucky you! Simply input your preferences for what kind of workout you're feeling, and hit the Generate Workout button. All kinds of computer wizardry will happen in the background and in (much) less than a second, you'll have a full workout presented to you, complete with warmup, varied workout sections, a finisher (good luck!), and a cooldown. 
+You've stumbled across an algorithmic workout generator - lucky you! Simply input your preferences for what kind of workout you're feeling, and hit the Generate Workout button. All kinds of computer wizardry will happen in the background and in (much) less than a second, you'll have a full workout presented to you, complete with warmup, varied workout sections, a finisher (good luck!), and a cooldown.
 
-Have a browse and see what you think of it - does it tickle your fancy? If not, no worries! Simply Re-Generate your Workout to create another workout using the same parameters, or Change your Options to go back to the first screen and re-select. 
+Have a browse and see what you think of it - does it tickle your fancy? If not, no worries! Simply Re-Generate your Workout to create another workout using the same parameters, or Change your Options to go back to the first screen and re-select.
 
 This tool is meant as workout inspiration, not a strict guide (ew) - I'm sure there are exercises that you'll come across and think "Eh? What are 'Bear Crawls'??" but that's part of the fun! Improvise and have fun with it (safely)!
 
 All of the workouts you generate are saved locally in the History section so you can easily go back, and you can clear them at any time. Just be aware that when you close your tab or browser, these workouts will be lost forever (if you'd like to see features like saving favourites added, let me know).
 
-Remember, these are computer-generated workouts which have not been approved by any personal trainer or otherwise qualified person, so don't take them as gospel and do amend them as you see *fit* (get it?). See the disclaimer for more information. 
+Remember, these are computer-generated workouts which have not been approved by any personal trainer or otherwise qualified person, so don't take them as gospel and do amend them as you see *fit* (get it?). See the disclaimer for more information.
 
 But wait, there's more!
 

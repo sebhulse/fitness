@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Workout Generator - Inspiration for busy people" />
   <meta name="author" content="Seb Hulse" />
-  <meta name="generator" content="Hugo 0.82.0" />
+  <meta name="generator" content="" />
   <title>Fitness</title>
   <link rel="canonical" href="https://sebhulse.com/fitness/web" />
-
-  <script src="js/bootstrap.bundle.min.js"></script>
-
   <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/default.min.css">
+  <script src="js/bootstrap.bundle.min.js"></script>
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -21,7 +20,6 @@
       -moz-user-select: none;
       user-select: none;
     }
-
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
@@ -56,78 +54,24 @@
         </ul>
       </header>
     </div>
-
   </main>
 </body>
 
 <body>
-  <div class="container-sm">
-    <header>
-      <h2 class="page-title">API</h2>
-    </header>
-    <div class="page-body">
-      <h3 id="31bca787-4162-4ce1-8c96-829765ceb25c" class="">V1</h3>
-      <p id="1726994a-7237-4129-b393-d6cc8281a962" class="">The intention of this API is to introduce a convenient way to access the data hosted at <a
-          href="http://fitness.sebhulse.com/data/bodyweight-exercises.json">fitness.sebhulse.com/data/bodyweight-exercises.json</a>. </p>
-      <p id="917ee8c7-e4ab-4bff-a5b3-968312ac854d" class="">No auth is required to access the API and it is provided as is. I&#x27;d ask that you use the API respectfully since there are limits on the total requests per day and I&#x27;d like as
-        many people as possible to have access to it. </p>
-      <p id="443cecb2-917b-4884-90df-0699c1e19bad" class="">Having got that out of the way, please reach out if you&#x27;ve made something cool - I&#x27;d love to know!</p>
-      <h3 id="a37c92c6-878f-4acb-bec3-6217cc22fcc0" class="">Endpoints</h3>
-      <p id="bb932d1f-d161-4ad6-b2cd-55bfc4c74c71" class="">There are currently two endpoints of which both require URL parameters:</p>
-      <ol id="81beb804-5510-451c-8076-0a840db73f50" class="numbered-list" start="1">
-        <li><a href="http://api.sebhulse.com/v1/filter">api.sebhulse.com/v1/filter</a> and </li>
-      </ol>
-      <ol id="f44d234e-4287-4e3c-82cb-5daa9dc5e490" class="numbered-list" start="2">
-        <li><a href="http://api.sebhulse.com/v1/workout">api.sebhulse.com/v1/workout</a></li>
-      </ol>
-      <h3 id="141c7a38-d3b0-408e-8692-7242d791afdf" class="">Filter</h3>
-      <p id="fa085024-3ab5-47fe-b6e8-0f9391fdc820" class="">This endpoint is intended to filter the <a href="http://fitness.sebhulse.com/data/bodyweight-exercises.json">raw exercises data</a> with the following parameters: <code>type</code>,
-        <code>level</code> and <code>area</code>.
-      </p>
-      <p id="67753280-39d7-47ad-bfc1-69997e61645c" class="">Options are:</p>
-      <pre id="af32fe45-296d-49a6-b29a-de1137977b8b" class="code code-wrap"><code>type: strength, cardio
-      level: beginner, intermediate, advanced
-      area: full, upper, lower, core</code></pre>
-      <p id="85d81e9c-d2ac-4c53-ac48-946f9ecef90c" class="">A GET request to <a href="http://api.sebhulse.com/v1/filter">api.sebhulse.com/v1/filter</a> would look something like this:</p>
-      <pre id="9875a957-95d4-421c-8cfd-414fa608dd74" class="code code-wrap"><code>api.sebhulse.com/v1/filter/?type=strength&amp;area=full&amp;level=beginner</code></pre>
-      <p id="221f4dfa-a553-491d-9e02-0479433662cd" class="">The successful response would look something like this:</p>
-      <pre id="547e6d4d-fb86-4885-a8ea-0c46758fc56d" class="code code-wrap"><code>{
-          &quot;parameters&quot;: {
-              &quot;type&quot;: &quot;strength&quot;,
-              &quot;level&quot;: &quot;beginner&quot;,
-              &quot;area&quot;: &quot;full&quot;
-          },
-          &quot;warmup&quot;: [
-              &quot;Leg Kicks&quot;,
-              &quot;Walking High Knees&quot;,
-      				// ... additional warmup exercises ...
-          ],
-          &quot;workout&quot;: [
-              &quot;Bent Leg Raises&quot;,
-              &quot;Ab Scissors&quot;,
-      				// ... additional workout exercises ...
-          ],
-          &quot;cooldown&quot;: [
-              &quot;Arm Overhead Side Stretch&quot;,
-              &quot;Shoulder Stretch&quot;,
-              // ... additional cooldown exercises here ...
-          ]
-      }</code></pre>
-      <p id="93d6f536-5476-41e2-95ad-ba1a266d3609" class="">With <code>parameters</code>, <code>warmup</code>, <code>workout</code> and <code>cooldown</code> keys.</p>
-      <p id="60d99963-0624-4606-8df0-788b12e91eed" class="">A query with incorrect parameters returns:</p>
-      <pre id="1a4370cf-7ecc-4f99-9b37-1ab369343c27" class="code code-wrap"><code>{
-          &quot;message&quot;: &quot;Incorrect query parameters. Query parameters should be as follows: type = &#x27;strength&#x27; or &#x27;cardio&#x27;; level = &#x27;beginner&#x27;, &#x27;intermediate&#x27; or &#x27;advanced&#x27;; and area = &#x27;lower&#x27;, &#x27;upper&#x27;, &#x27;core&#x27; or &#x27;full&#x27;&quot;
-      }</code></pre>
-      <h3 id="101c46a9-f88e-4f45-affc-bcc21b4935a7" class="">Workout</h3>
-      <p id="c8ea642e-c81e-4de7-b72e-c3e71ac0e491" class="">Now the endpoint you&#x27;re really interested in! This is intended to return an algorithmic random-ish generated workout. </p>
-      <p id="db77aaee-4981-4138-a2bb-a631f6c6d7b9" class="">This endpoint is currently still in development and is therefore still evolving so I won&#x27;t put any strict documentation here yet. Instead, if you&#x27;d like to play around with it,
-        you can hit the end point with the same input parameters as above (<code>type</code>, <code>level</code> and <code>area</code>) with the additional parameter <code>duration</code> in minutes to specify how long you would like the workout to
-        be. This endpoint calls the filter endpoint within it to access the filtered exercises.</p>
-      <p id="545d3393-0613-4ca2-a52d-be6d9c82c12c" class="">A GET request to <a href="http://api.sebhulse.com/v1/workout">api.sebhulse.com/v1/workout</a> would look something like this: </p>
-      <pre id="04a07906-e0a3-496e-b986-915bd4acfbe0" class="code code-wrap"><code>api.sebhulse.com/v1/workout/?type=strength&amp;area=full&amp;level=beginner&amp;duration=30</code></pre>
-    </div>
-  </div>
-
+  <div id="content" class="container-sm"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const docs = "docs/API.md"
+    async function run() {
+      let file = await fetch(docs)
+      let text = await file.text()
+      document.getElementById('content').innerHTML =
+        marked(text);
+      hljs.highlightAll();
+    }
+    run()
+  </script>
 </body>
 
 </html>

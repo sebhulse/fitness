@@ -1,6 +1,4 @@
-# SUPPORT
-
-### Support
+## Support
 
 This outlines the ways in which you can support, with some insight into future feature expansion.
 

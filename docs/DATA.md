@@ -1,4 +1,4 @@
-# DATA
+## Data
 
 This tool is built on an **open-source** JSON dataset for bodyweight exercises and is hosted at [fitness.sebhulse.com/data/bodyweight-exercises.json](https://fitness.sebhulse.com/data/bodyweight-exercises.json). Please feel free to use it in your own projects under the CC BY 4.0 license.
 
@@ -12,7 +12,7 @@ The data is split into `warmup`, `workout` and `cooldown` exercises and comprise
 
 `warmup` and `cooldown` exercises do not have `type` or `level` keys.
 
-## Example
+### Example
 
 ```json
 {  
