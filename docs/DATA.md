@@ -38,4 +38,4 @@ This example shows the default values for the `type`, `level` and `area` keys of
 
 For the `type`, `level` and `area` keys, the values are any combination of the default values above, as deemed most appropriate to the exercise.
 
-See the API section for more information on how to take advantage of this data in a convenient way.
+See the [API](/api.html) page for more information on how to take advantage of this data in a convenient way.

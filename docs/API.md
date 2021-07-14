@@ -1,10 +1,10 @@
 ## API
 
-The intention of this API is to introduce a convenient way to access the data hosted at [fitness.sebhulse.com/data/bodyweight-exercises.json](http://fitness.sebhulse.com/data/bodyweight-exercises.json).
+The intention of this API is to introduce a convenient way to access the data hosted at [fitness.sebhulse.com/data/bodyweight-exercises.json](http://fitness.sebhulse.com/data/bodyweight-exercises.json), and to generate semi-random workouts with this data.
 
 No auth is required to access the API and it is provided as is. I'd ask that you use the API respectfully since there are limits on the total requests per day and I'd like as many people as possible to have access to it.
 
-Having got that out of the way, please reach out if you've made something cool - I'd love to know!
+With that out of the way, please reach out if you've made something cool - I'd love to know!
 
 ### Endpoints
 
@@ -25,10 +25,10 @@ level: beginner, intermediate, advanced
 area: full, upper, lower, core
 ```
 
-A GET request to [api.sebhulse.com/v1/filter](http://api.sebhulse.com/v1/filter) would look something like this:
+A GET request to [api.sebhulse.com/v1/filter](https://api.sebhulse.com/v1/filter) would look something like this:
 
 ```json
-[api.sebhulse.com/v1/filter](http://api.sebhulse.com/v1/filter)/?type=strength&area=full&level=beginner
+https://api.sebhulse.com/v1/filter/?type=strength&area=full&level=beginner
 ```
 
 The successful response would look something like this:
@@ -74,8 +74,8 @@ Now the endpoint you're really interested in! This is intended to return an algo
 
 This endpoint is currently still in development and is therefore still evolving so I won't put any strict documentation here yet. Instead, if you'd like to play around with it, you can hit the end point with the same input parameters as above (`type`, `level` and `area`) with the additional parameter `duration` in minutes to specify how long you would like the workout to be. This endpoint calls the filter endpoint within it to access the filtered exercises.
 
-A GET request to [api.sebhulse.com/v1/workout](http://api.sebhulse.com/v1/workout) would look something like this:
+A GET request to [api.sebhulse.com/v1/workout](https://api.sebhulse.com/v1/workout) would look something like this:
 
 ```json
-[api.sebhulse.com/v1/workout](http://api.sebhulse.com/v1/workout)/?type=strength&area=full&level=beginner&duration=30
+https://api.sebhulse.com/v1/workout/?type=strength&area=full&level=beginner&duration=30
 ```
