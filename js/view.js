@@ -20,7 +20,7 @@ async function viewPageLoad() {
 // get form parameters and send to index.html with string query
 function changeOptions() {
   parameters = getParameters();
-  var url =
+  let url =
     "index.html?type=" +
     encodeURIComponent(parameters.type) +
     "&area=" +
@@ -174,7 +174,7 @@ function buildHistory() {
   }
 
   let keys = [];
-  for (var i = 0; i < sessionStorage.length; i++) {
+  for (let i = 0; i < sessionStorage.length; i++) {
     keys.push(sessionStorage.key(i));
   }
   keys.sort((a, b) => a - b);
@@ -183,7 +183,7 @@ function buildHistory() {
   ol.className = "list-group";
   ol.id = "listContainer";
 
-  for (var i = 0; i < keys.length; i++) {
+  for (let i = 0; i < keys.length; i++) {
     let key = keys[i];
     let data = sessionStorage.getItem(key);
     if (!data) {
@@ -266,13 +266,13 @@ function secondsToHms(d) {
   }
 
   d = Number(d);
-  var h = Math.floor(d / 3600);
-  var m = Math.floor((d % 3600) / 60);
-  var s = Math.floor((d % 3600) % 60);
+  let h = Math.floor(d / 3600);
+  let m = Math.floor((d % 3600) / 60);
+  let s = Math.floor((d % 3600) % 60);
 
-  var hDisplay = h > 0 ? h + "h " : "";
-  var mDisplay = m > 0 ? m + "m " : "";
-  var sDisplay = s > 0 ? s + "s" : "0s";
+  let hDisplay = h > 0 ? h + "h " : "";
+  let mDisplay = m > 0 ? m + "m " : "";
+  let sDisplay = s > 0 ? s + "s" : "0s";
   if (showSeconds) {
     return hDisplay + mDisplay + sDisplay;
   } else {
