@@ -1,4 +1,5 @@
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollToPlugin);
 
 const workout = {
     "warmup": [
@@ -78,10 +79,9 @@ const workout = {
 
 // TODO: control animation on play button and change animation to move viewport when tween on timeline is complete
 
-ScrollTrigger.defaults({
-  toggleActions: "restart pause resume pause",
-  scroller: ".container"
-});
+
+
+
 
 let tl = gsap.timeline()
 
@@ -93,9 +93,7 @@ function createIntro() {
     generatePanel(wordToUpperCase(key))
     for (let keyInner in workout[key]) {
       if (key != "parameters") {
-        console.log(keyInner);
         let name = workout[key][keyInner].ex
-        console.log(name);
         generatePanel(wordToUpperCase(name))
       }
     }
@@ -107,37 +105,83 @@ function generatePanel(key) {
   let h1 = document.createElement("h1")
   h1.innerHTML = key
   section.classList = `panel trigger-${index}`;
+  section.id = `realtimeAnimationSection`
   let line = document.createElement("span")
   line.classList = `line line-${index}`
   h1.appendChild(line)
   section.appendChild(h1)
   realtimeAnimation.appendChild(section)
 
-  tl.from(`.line-${index}`, {
+  // console.log(`.line-${(index+1)}`);
+  tl.to(`.line-${index}`, {
     scaleX: 0,
     transformOrigin: "left center",
-    ease: "none"
+    ease: "none",
+    duration: 1,
+    // scrollTo: "#trigger-3"
   })
+// let element = document.getElementById('trigger-3');
+  let trig = `#trigger-${index}`
+  tl.to(window, {
+    scrollTo: {
+      y: ".trigger-3"
+    }
+  })
+
+  // gsap.to(window, {
+  // scrollTo: {
+  //   x: ".page2"
+  // }
 
   index++
 }
 
 createIntro()
 
+// Local variable.
+let _maxHeight = 0;
 
-// animate line on scrub for line-1 (trigger-1)
-// tl.from(".line-1", {
-//   scrollTrigger: {
-//     trigger: ".trigger-1",
-//     scrub: true,
-//     pin: true,
-//     start: "top top",
-//     end: "+=100%"
-//   },
-//   scaleX: 0,
-//   transformOrigin: "left center",
-//   ease: "none"
+// Const assignment.
+const _scrollContainer = "#realtimeAnimation";
+const _scrollContainerPage = gsap.utils.toArray("#realtimeAnimationSection");
+
+// Get maximum width to scroll
+const getMaxHeight = () => {
+  _maxHeight = 0;
+  _scrollContainerPage.forEach((section) => (_maxHeight += section.offsetHeight));
+};
+
+getMaxHeight()
+// console.log(_scrollContainerPage);
+
+// Event listener.
+ScrollTrigger.addEventListener("refreshInit", getMaxHeight);
+
+// ScrollTrigger.defaults({
+//   toggleActions: "restart pause resume pause",
+//   scroller: ".container"
 // });
+
+console.log(_scrollContainerPage.length);
+// Animate to given section.
+gsap.to(_scrollContainerPage, {
+  yPercent: -100 * (_scrollContainerPage.length - 1),
+  // ease: "power3.inOut",
+  scrollTrigger: {
+    trigger: _scrollContainer,
+    pin: true,
+    scrub: 0.3,
+    start: "top top",
+    end: `+=${_maxHeight}`,
+    invalidateOnRefresh: true,
+    anticipatePin: 1
+  }
+});
+
+// function togglePlay() {
+//   tl.play()
+// }
+
 
 
 // first letter of string to uppercase and insert spaces between lower case letters, upper case letters and numbers
