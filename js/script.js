@@ -1,68 +1,66 @@
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(ScrollToPlugin);
 
 const workout = {
     "warmup": [
         {
             "ex": "Slow Walkout / Overhead Reach",
-            "du": 30
+            "du": 3
         },
         {
             "ex": "transition",
-            "du": 40
+            "du": 4
         }
     ],
     "reversePyramids1": [
         {
             "ex": "Walk Out with Push Up",
-            "du": 45,
-            "re": 20
+            "du": 4,
+            "re": 2
         },
         {
             "ex": "Walk Out with Push Up",
-            "du": 30,
+            "du": 3,
             "re": 0
         },
         {
             "ex": "transition",
-            "du": 40
+            "du": 4
         }
     ],
     "fun1": [
         {
             "ex": "Glute Bridge",
-            "du": 30,
-            "re": 20
+            "du": 3,
+            "re": 2
         },
         {
             "ex": "Butterfly Sit-up",
-            "du": 30,
-            "re": 20
+            "du": 3,
+            "re": 2
         },
         {
             "ex": "Slow Tempo Squat",
-            "du": 30,
+            "du": 3,
             "re": 0
         },
         {
             "ex": "transition",
-            "du": 40
+            "du": 4
         }
     ],
     "finisher": [
         {
             "ex": "Glute Bridge",
-            "du": 40
+            "du": 4
         },
         {
             "ex": "transition",
-            "du": 40
+            "du": 4
         }
     ],
     "cooldown": [
         {
             "ex": "Seated Side Stretch",
-            "du": 30
+            "du": 3
         }
     ],
     "parameters": {
@@ -74,115 +72,65 @@ const workout = {
     }
 }
 
-// change of plan - generate all html elements as they should be on one HTML page (one exercise/event per page viewport),
-// then scrolltigger/animate sequentially based on central(?) timer
+// change of plan again - minimal simple html elements and update the innerHTML text based on timeline progress
 
-// TODO: control animation on play button and change animation to move viewport when tween on timeline is complete
+// TODO - animate rectangles based on progress of timeline (progress, totalProgress) using callbacks (onStart) and update duration left
 
+const heading1 = document.querySelector("#heading1")
+const heading2 = document.querySelector("#heading2")
+let workoutLength = 0
 
+function setHeading1Text(text) {
+  heading1.innerHTML = wordToUpperCase(text)
+}
 
+function setHeading2Text(text) {
+  heading2.innerHTML = text + " seconds"
+}
 
+let heading1Tl = gsap.timeline()
+let heading2Tl = gsap.timeline()
 
-let tl = gsap.timeline()
+// adds to both timelines - heading1 and heading2 at the same time
+function addToTl(text, duration) {
+  heading1Tl.fromTo(heading1, {
+    rotation: 0
+  },
+  {
+    rotation: 360,
+    ease: "elastic",
+    onStart: setHeading1Text,
+    onStartParams: [text],
+  }, workoutLength
+)
 
+  heading2Tl.to(heading2,
+  {
+    ease: "elastic",
+    onStart: setHeading2Text,
+    onStartParams: [duration],
+  }, workoutLength
+)
+workoutLength += duration
+console.log(workoutLength);
+}
 
-// create basic html using sections titles in data, with appropriate classes
-let index = 0
-function createIntro() {
+// loops through workout and adds to timeline
+function createFullTimeline() {
   for (let key in workout) {
-    generatePanel(wordToUpperCase(key))
+    let duration = 2
+    addToTl(key, duration)
     for (let keyInner in workout[key]) {
       if (key != "parameters") {
         let name = workout[key][keyInner].ex
-        generatePanel(wordToUpperCase(name))
+        let duration = workout[key][keyInner].du
+        addToTl(name, duration)
       }
     }
   }
 }
 
-function generatePanel(key) {
-  let section = document.createElement("section")
-  let h1 = document.createElement("h1")
-  h1.innerHTML = key
-  section.classList = `panel trigger-${index}`;
-  section.id = `realtimeAnimationSection`
-  let line = document.createElement("span")
-  line.classList = `line line-${index}`
-  h1.appendChild(line)
-  section.appendChild(h1)
-  realtimeAnimation.appendChild(section)
-
-  // console.log(`.line-${(index+1)}`);
-  tl.to(`.line-${index}`, {
-    scaleX: 0,
-    transformOrigin: "left center",
-    ease: "none",
-    duration: 1,
-    // scrollTo: "#trigger-3"
-  })
-// let element = document.getElementById('trigger-3');
-  let trig = `#trigger-${index}`
-  tl.to(window, {
-    scrollTo: {
-      y: ".trigger-3"
-    }
-  })
-
-  // gsap.to(window, {
-  // scrollTo: {
-  //   x: ".page2"
-  // }
-
-  index++
-}
-
-createIntro()
-
-// Local variable.
-let _maxHeight = 0;
-
-// Const assignment.
-const _scrollContainer = "#realtimeAnimation";
-const _scrollContainerPage = gsap.utils.toArray("#realtimeAnimationSection");
-
-// Get maximum width to scroll
-const getMaxHeight = () => {
-  _maxHeight = 0;
-  _scrollContainerPage.forEach((section) => (_maxHeight += section.offsetHeight));
-};
-
-getMaxHeight()
-// console.log(_scrollContainerPage);
-
-// Event listener.
-ScrollTrigger.addEventListener("refreshInit", getMaxHeight);
-
-// ScrollTrigger.defaults({
-//   toggleActions: "restart pause resume pause",
-//   scroller: ".container"
-// });
-
-console.log(_scrollContainerPage.length);
-// Animate to given section.
-gsap.to(_scrollContainerPage, {
-  yPercent: -100 * (_scrollContainerPage.length - 1),
-  // ease: "power3.inOut",
-  scrollTrigger: {
-    trigger: _scrollContainer,
-    pin: true,
-    scrub: 0.3,
-    start: "top top",
-    end: `+=${_maxHeight}`,
-    invalidateOnRefresh: true,
-    anticipatePin: 1
-  }
-});
-
-// function togglePlay() {
-//   tl.play()
-// }
-
-
+createFullTimeline()
 
 // first letter of string to uppercase and insert spaces between lower case letters, upper case letters and numbers
 function wordToUpperCase(word) {
