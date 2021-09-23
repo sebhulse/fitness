@@ -6,7 +6,7 @@ body {
   text-align: center;
 }
 
-.line {
+/* .line {
   width: 100%;
   max-width: 800px;
   height: 8px;
@@ -14,29 +14,41 @@ body {
   position: relative;
   display: inline-block;
   background-color: rgba(255,255,255,1);
+} */
+
+svg {
+  position:fixed;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  z-index: -1
 }
 
 h2 {
   font-family: "droid serif", sans-serif;
   color: #FFF;
   font-size: 5em;
+  z-index: 2
+
 }
 
 h1 {
   font-family: "Abril Fatface", sans-serif;
   font-weight: normal;
   color: #FFF;
-  font-size: 10em;
+  font-size: 7em;
+  z-index: 3
 }
 
-section {
+/* section {
   display: flex;
   align-items: center;
   justify-content: center;
 	height: 100vh;
-}
+} */
 
-.panel {
+/* .panel {
   scroll-snap-align: start;
   height: 100vh;
 }
@@ -45,4 +57,4 @@ section {
   max-height: 100vh;
 	overflow: scroll;
   scroll-snap-type: y mandatory;
-}
+} */

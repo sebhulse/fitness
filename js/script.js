@@ -78,7 +78,12 @@ const workout = {
 
 const heading1 = document.querySelector("#heading1")
 const heading2 = document.querySelector("#heading2")
+const exerciseTimer1 = document.querySelector("#exerciseTimer1")
+const exerciseTimer2 = document.querySelector("#exerciseTimer2")
+
 let workoutLength = 0
+let totalWorkoutLength = 0
+let scaleY = 100
 
 function setHeading1Text(text) {
   heading1.innerHTML = wordToUpperCase(text)
@@ -88,31 +93,66 @@ function setHeading2Text(text) {
   heading2.innerHTML = text + " seconds"
 }
 
+function calcTotalWorkoutLength() {
+  for (let key in workout) {
+    totalWorkoutLength += 2
+    for (let keyInner in workout[key]) {
+      if (key != "parameters") {
+        totalWorkoutLength += workout[key][keyInner].du
+      }
+    }
+  }
+}
+
+calcTotalWorkoutLength()
+
+
+
 let heading1Tl = gsap.timeline()
 let heading2Tl = gsap.timeline()
+let exerciseTimerTl = gsap.timeline()
+let exerciseTimerT2 = gsap.timeline()
+
+exerciseTimerTl.to(exerciseTimer1,
+  {
+  yPercent: 100,
+  duration: totalWorkoutLength,
+  ease: "linear"
+})
 
 // adds to both timelines - heading1 and heading2 at the same time
 function addToTl(text, duration) {
   heading1Tl.fromTo(heading1, {
     rotation: 0
-  },
-  {
-    rotation: 360,
-    ease: "elastic",
-    onStart: setHeading1Text,
-    onStartParams: [text],
-  }, workoutLength
-)
+    }, {
+      rotation: 360,
+      ease: "elastic",
+      onStart: setHeading1Text,
+      onStartParams: [text],
+    }, workoutLength
+  )
 
   heading2Tl.to(heading2,
-  {
-    ease: "elastic",
-    onStart: setHeading2Text,
-    onStartParams: [duration],
-  }, workoutLength
-)
+    {
+      ease: "elastic",
+      onStart: setHeading2Text,
+      onStartParams: [duration],
+    }, workoutLength
+  )
+
+  exerciseTimerT2.to(exerciseTimer2,
+    {
+    yPercent: scaleY,
+    duration: duration,
+    ease: "linear"
+  }, workoutLength)
+
 workoutLength += duration
-console.log(workoutLength);
+if (scaleY === 0) {
+  scaleY = 100
+} else {
+  scaleY = 0
+}
 }
 
 // loops through workout and adds to timeline
@@ -130,7 +170,10 @@ function createFullTimeline() {
   }
 }
 
+
 createFullTimeline()
+
+console.log(workoutLength);
 
 // first letter of string to uppercase and insert spaces between lower case letters, upper case letters and numbers
 function wordToUpperCase(word) {
