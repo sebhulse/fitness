@@ -1,60 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
 
 body {
-  background-color:#1d1d1d;
-  margin: 10px;
+  background-color: #1d1d1d;
+  margin: 5px;
   text-align: center;
 }
 
-/* .line {
-  width: 100%;
-  max-width: 800px;
-  height: 8px;
-  margin: 0 0 10px 0;
-  position: relative;
-  display: inline-block;
-  background-color: rgba(255,255,255,1);
-} */
+.vertCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
 
 svg {
-  position:fixed;
-  top:0;
-  left:0;
-  height:100%;
-  width:100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   z-index: -1
 }
 
-h2 {
-  font-family: "droid serif", sans-serif;
-  color: #FFF;
-  font-size: 5em;
-  z-index: 2
-
-}
-
 h1 {
-  font-family: "Abril Fatface", sans-serif;
+  font-family: "droid serif", sans-serif;
   font-weight: normal;
   color: #FFF;
-  font-size: 7em;
+  font-size: 4rem;
+  z-index: 4
+}
+
+h2 {
+  font-family: "Abril Fatface", sans-serif;
+  color: #FFF;
+  font-size: 6rem;
   z-index: 3
 }
 
-/* section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-	height: 100vh;
-} */
-
-/* .panel {
-  scroll-snap-align: start;
-  height: 100vh;
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5%;
+  width: 100%;
+  /* overflow: hidden; */
 }
 
-.container {
-  max-height: 100vh;
-	overflow: scroll;
-  scroll-snap-type: y mandatory;
-} */
+h3 {
+  font-family: "droid serif", sans-serif;
+  color: #FFF;
+  font-size: 4rem;
+  z-index: 2
+}
