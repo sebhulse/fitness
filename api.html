@@ -20,6 +20,7 @@
       -moz-user-select: none;
       user-select: none;
     }
+
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
@@ -67,7 +68,7 @@
       let file = await fetch(docs)
       let text = await file.text()
       document.getElementById('content').innerHTML =
-        marked(text);
+        marked.parse(text);
       hljs.highlightAll();
     }
     run()
